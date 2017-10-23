@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Alert</title>
+	    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="pages/js/jquerysessions.js"></script> -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+if(localStorage.getItem("status")=="true")
+{
+	window.location = "index.html";
+}
+</script>
+<body>
+<div class="text-xs-center" style="color: #fff; background-color: #f05234; min-height: 100px; padding: 65px; text-align:center; margin-top:200px;">
+  <h1 style="font-size: 3rem;">You would have to login first</h1>
+  <p class="lead" style="font-size: 1.8rem;">
+    Bari Motors : Deals in all brand new cars and reconditioned.
+  </p>
+  <button class="btn btn-info " onclick="window.location.href='login.html'">Login</button>
+</div>
+</body>
+</html>
