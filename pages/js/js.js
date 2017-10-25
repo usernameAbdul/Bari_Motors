@@ -93,6 +93,7 @@ $('#sel1').on('change', function() {
         $('#carDiv').css('display', 'block');
         $('#bank').css('display', 'none');
         $('#investorDivCredit').css('display', 'none');
+        $('#suppliersCar').css('display', 'none');
 
     } else if (name == "Banks") {
 
@@ -100,6 +101,7 @@ $('#sel1').on('change', function() {
         $('#carDiv').css('display', 'none');
         $('#bank').css('display', 'block');
         $('#investorDivCredit').css('display', 'none');
+        $('#suppliersCar').css('display', 'none');
 
 
     } else if (name == "Investment") {
@@ -107,7 +109,14 @@ $('#sel1').on('change', function() {
         $('#investorDivCredit').css('display', 'block');
         $('#carDiv').css('display', 'none');
         $('#bank').css('display', 'none');
+        $('#suppliersCar').css('display', 'none');
 
+
+    } else if (name == "Supplier") {
+        $('#investorDivCredit').css('display', 'none');
+        $('#carDiv').css('display', 'none');
+        $('#bank').css('display', 'none');
+        $('#suppliersCar').css('display', 'block');
 
     }
 });
@@ -133,19 +142,19 @@ $('#sel2').on('change', function() {
 
 $('#sel3').on('change', function() {
     var name = $('#sel3').val();
-    console.log(name);
+
     if (name == "Cheque") {
         $('.chequeChecked2').css('display', 'block');
         $('.cashChecked2').css('display', 'none');
         $('.onlineChecked2').css('display', 'none');
 
     } else if (name == "Cash In Hand") {
-        console.log("inside banks");
+
         $('.cashChecked2').css('display', 'block');
         $('.chequeChecked2').css('display', 'none');
         $('.onlineChecked2').css('display', 'none');
     } else if (name == "Online Payment") {
-        console.log("inside banks");
+
         $('.chequeChecked2').css('display', 'none');
         $('.cashChecked2').css('display', 'none');
         $('.onlineChecked2').css('display', 'block');
@@ -255,56 +264,151 @@ $('.oBankRemove').on('click', function() {
 });
 /*--------------------------------------------*/
 
-$('.cihCarAdd').on('click', function() {
-    countCar++;
-    var html = '';
-    html = "<div class=\"c" + countCar + "\"><hr><div class=\"form-group\"><label for=\"usr\">Amount:</label><input type=\"text\" class=\"form-control\" id=\"usr\"> </div></div>"
-    console.log(html);
-    $('#carDiv1').append(html);
-    $('.cihCarRemove').show();
+// $('.cihCarAdd').on('click', function() {
+//     countCar++;
+//     var html = '';
+//     html = "<div class=\"c" + countCar + "\"><hr><div class=\"form-group\"><label for=\"usr\">Amount:</label><input type=\"text\" class=\"form-control\" id=\"usr\"> </div></div>"
+//     console.log(html);
+//     $('#carDiv1').append(html);
+//     $('.cihCarRemove').show();
 
-});
+// });
 
-$('.cihCarRemove').on('click', function() {
-    console.log("here");
+// $('.cihCarRemove').on('click', function() {
+//     console.log("here");
 
-    $(".c" + countCar + "").remove();
-    countCar--;
-    if (countCar == 0) {
-        $('.cihCarRemove').hide();
-    }
+//     $(".c" + countCar + "").remove();
+//     countCar--;
+//     if (countCar == 0) {
+//         $('.cihCarRemove').hide();
+//     }
 
-});
+// });
+function getBankListCredit() {
+    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
 
+        var html = '';
+
+        success.forEach(function(ele) {
+            if (ele.Name != "Profit Loss") {
+                html += `<option>` + ele.Name + `</option>`
+            }
+        }, this)
+
+        $('#bankListCredit' + countCiCar + '').append(html);
+        console.log(countCiCar);
+
+    });
+
+}
+
+// $(document).on('change', '#bankListCredit' + countCiCar + '', function() {
+//     // Action goes here.
+//     console.log($('#bankListCredit' + countCiCar + '').val());
+// });
+// $().on('change', function() {
+//     $('#accountIdCredit' + countCiCar + '').html('');
+
+//     $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#bankListCredit' + countCiCar + '').val() + "", function(success) {
+
+//         var html = '';
+//         html += `<option>Select Account</option>`
+
+//         success.forEach(function(ele) {
+
+//             html += `<option>` + ele.AccountID + `</option>`
+//         }, this)
+//         $('#accountIdCredit' + countCiCar + '').append(html);
+//     });
+
+
+// });
+function register(c) {
+    $(`#bankListCredit${c}`).on('change', function() {
+        $('#accountIdCredit' + countCiCar + '').html('');
+
+        $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#bankListCredit' + countCiCar + '').val() + "", function(success) {
+
+            var html = '';
+            html += `<option>Select Account</option>`
+
+            success.forEach(function(ele) {
+
+                html += `<option>` + ele.AccountID + `</option>`
+            }, this)
+            $('#accountIdCredit' + countCiCar + '').append(html);
+        });
+    });
+}
+
+function register2(c) {
+    $('#accountIdCredit' + countCiCar + '').on('change', function() {
+
+        $.get(apiPath + "Accounts?filter[where][AccountID]=" + $('#accountIdCredit' + countCiCar + '').val() + "", function(success) {
+            var html = '';
+            $('#accNoCredit' + countCiCar + '').val(success[0].AccountNo);
+        });
+
+
+    });
+}
 $('.ciCarAdd').on('click', function() {
     countCiCar++;
-    var html = "<div class=\"ci" + countCiCar + "\"> <hr><div class=\"form-group\">"
-    html += "  <label>Bank's list:</label>"
-    html += "  <select class=\"form-control\">"
-    html += "    <option>alHabib</option>"
-    html += "    <option>blah</option>"
-    html += "    <option>Others</option>"
-    html += "  </select>"
-    html += "</div>"
-    html += "<div class=\"form-group\">"
-    html += "  <label for=\"usr\">Check No:</label>"
-    html += "  <input type=\"text\" class=\"form-control\" id=\"usr\">"
-    html += "</div>"
-    html += "<div class=\"form-group\">"
-    html += "  <label for=\"usr\">Account No:</label>"
-    html += "  <input type=\"text\" class=\"form-control\" id=\"usr\">"
-    html += "</div>"
-    html += "<div class=\"form-group\">"
-    html += "  <label for=\"usr\">Amount:</label>"
-    html += "  <input type=\"text\" class=\"form-control\" id=\"usr\">"
-    html += "</div>"
-    html += "<div class=\"form-group\">"
-    html += "  <div><label for=\"usr\">Status:</label></div>"
-    html += "  <label class=\"radio-inline\"><input type=\"radio\"  value=\"1\" name=\"option\">Paid </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-    html += "  <label class=\"radio-inline\"><input type=\"radio\"  value=\"0\" name=\"option\">Unpaid</label>"
-    html += "</div></div>";
+    getBankListCredit();
+
+    var html = `<div class="ci${countCiCar}"><hr><div class="form-group">
+    <label>Bank's list:</label>
+    <select class="form-control" id="bankListCredit${countCiCar}">
+<option>Select Bank</option>
+</select>
+</div>
+<div class="form-group">
+    <label>Account ID:</label>
+    <select class="form-control" id="accountIdCredit` + countCiCar + `">
+<option>Select Account</option>
+</select>
+</div>
+<div class="form-group">
+    <label for="usr">Account No:</label>
+    <input type="text" class="form-control" id="accNoCredit` + countCiCar + `">
+</div>
+<div class="form-group">
+    <label for="usr">Check No:</label>
+    <input type="text" class="form-control" id="cNoCredit` + countCiCar + `">
+</div>
+<div class="form-group">
+    <label for="usr">Amount:</label>
+    <input type="text" class="form-control" id="chequeCreditAmount` + countCiCar + `">
+</div></div>`
+        // var html = "<div class=\"ci" + countCiCar + "\"> <hr><div class=\"form-group\">"
+        // html += "  <label>Bank's list:</label>"
+        // html += "  <select class=\"form-control\">"
+        // html += "    <option>alHabib</option>"
+        // html += "    <option>blah</option>"
+        // html += "    <option>Others</option>"
+        // html += "  </select>"
+        // html += "</div>"
+        // html += "<div class=\"form-group\">"
+        // html += "  <label for=\"usr\">Check No:</label>"
+        // html += "  <input type=\"text\" class=\"form-control\" id=\"usr\">"
+        // html += "</div>"
+        // html += "<div class=\"form-group\">"
+        // html += "  <label for=\"usr\">Account No:</label>"
+        // html += "  <input type=\"text\" class=\"form-control\" id=\"usr\">"
+        // html += "</div>"
+        // html += "<div class=\"form-group\">"
+        // html += "  <label for=\"usr\">Amount:</label>"
+        // html += "  <input type=\"text\" class=\"form-control\" id=\"usr\">"
+        // html += "</div>"
+        // html += "<div class=\"form-group\">"
+        // html += "  <div><label for=\"usr\">Status:</label></div>"
+        // html += "  <label class=\"radio-inline\"><input type=\"radio\"  value=\"1\" name=\"option\">Paid </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+        // html += "  <label class=\"radio-inline\"><input type=\"radio\"  value=\"0\" name=\"option\">Unpaid</label>"
+        // html += "</div></div>";
     $('#carDiv2').append(html);
     $('.ciCarRemove').show();
+    register(countCiCar);
+    register2(countCiCar);
 });
 $('.ciCarRemove').on('click', function() {
 
@@ -317,30 +421,84 @@ $('.ciCarRemove').on('click', function() {
 
 });
 
+function getBankListCreditOnline() {
+    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
+
+        var html = '';
+
+        success.forEach(function(ele) {
+            if (ele.Name != "Profit Loss") {
+                html += `<option>` + ele.Name + `</option>`
+            }
+        }, this)
+
+        $('#bankListCreditOnline' + countOCar).append(html);
+    });
+
+}
+
+function register3(c) {
+    $('#bankListCreditOnline' + c).on('change', function() {
+        $('#accountIdCreditOnline').html('');
+        var html = ''
+        $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#bankListCreditOnline' + c).val() + "", function(success) {
+
+
+
+
+            success.forEach(function(ele) {
+
+                html += `<option>` + ele.AccountID + `</option>`
+            }, this)
+            $('#accountIdCreditOnline' + c).append(html);
+        });
+
+
+    });
+}
+
+function register4(c) {
+    $('#accountIdCreditOnline' + c).on('change', function() {
+
+        $.get(apiPath + "Accounts?filter[where][AccountID]=" + $('#accountIdCreditOnline' + c).val() + "", function(success) {
+            var html = '';
+            $('#accNoCreditOnline' + c).val(success[0].AccountNo);
+        });
+
+
+    });
+}
 $('.oCarAdd').on('click', function() {
     countOCar++;
+    getBankListCreditOnline();
     var html = `<div class="o${countOCar}">
 	<hr>
 	<div class="form-group">
-      <label>Bank's list:</label>
-      <select class="form-control">
-        <option>alHabib</option>
-        <option>blah</option>
-        <option>Others</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="usr">Account No:</label>
-      <input type="text" class="form-control" id="usr">
-    </div>
-    <div class="form-group">
-      <label for="usr">Amount:</label>
-      <input type="text" class="form-control" id="usr">
-    </div>
+    <label>Bank's list:</label>
+    <select class="form-control" id="bankListCreditOnline${countOCar}">
+<option>Select Bank</option>
+</select>
+</div>
+<div class="form-group">
+    <label>Account ID:</label>
+    <select class="form-control" id="accountIdCreditOnline${countOCar}">
+<option>Select Account</option>
+</select>
+</div>
+<div class="form-group">
+    <label for="usr">Account No:</label>
+    <input type="text" class="form-control" id="accNoCreditOnline${countOCar}">
+</div>
+<div class="form-group">
+    <label for="usr">Amount:</label>
+    <input type="text" class="form-control" id="onlineCreditAmount${countOCar}">
+</div>
   </div>`;
-    console.log(html);
+
     $('#carDiv3').append(html);
     $('.oCarRemove').show();
+    register3(countOCar);
+    register4(countOCar);
 
 });
 $('.oCarRemove').on('click', function() {
@@ -531,19 +689,18 @@ $('#dsel2').on('change', function() {
 
 $('#dsel3').on('change', function() {
     var name = $('#dsel3').val();
-    console.log(name);
     if (name == "Cheque") {
         $('.dchequeChecked2').css('display', 'block');
         $('.dcashChecked2').css('display', 'none');
         $('.donlineChecked2').css('display', 'none');
 
     } else if (name == "Cash In Hand") {
-        console.log("inside banks");
+
         $('.dcashChecked2').css('display', 'block');
         $('.dchequeChecked2').css('display', 'none');
         $('.donlineChecked2').css('display', 'none');
     } else if (name == "Online Payment") {
-        console.log("inside banks");
+
         $('.dchequeChecked2').css('display', 'none');
         $('.dcashChecked2').css('display', 'none');
         $('.donlineChecked2').css('display', 'block');
@@ -936,7 +1093,6 @@ function addCar() {
             "ChasisNo": $("#chNo").val(),
             "ProfitMargin": $("#pm").val(),
             "PurchasePrice": $("#pp").val(),
-            "SalePrice": $("#sp").val(),
             "PurchaseDate": new Date(),
             "CarCondition": "New",
             "AddedBy": localStorage.getItem("myVar"),
@@ -1191,66 +1347,45 @@ function getAccount() {
         $('#accountTable').append(html);
     });
 }
+var pay = [];
+var TotalAmount = 0;
+
+function addCashInHand(amount) {
+    pay.push({ "Mode": "Cash", "Amount": parseInt(amount) });
+    TotalAmount += parseInt(amount);
+}
+
+function addCheque(amount, chequeNo, account) {
+    // for(i=0;i<=)
+    pay.push({ "Mode": "Cheque", "Amount": parseInt(amount), "AccountID": account, "ChequeNo": chequeNo });
+    TotalAmount += parseInt(amount);
+}
+
+function addOnline(account, amount) {
+    pay.push({ "Mode": "Online Payment", "AccountID": account, "Amount": parseInt(amount) });
+    TotalAmount += parseInt(amount);
+
+}
 
 function addCredit() {
     var data;
     if ($('#sel1').val() == "Car") {
 
-
-
-        /*if($('#sel3').val()=="Cash In Hand"){
-         data = {
-            "InvestorID": $('#creditInvestor').val(),
-            "CarID": $('#creditCarID').val(),
-            "DO": $('#11').val(),
-            "TransactionType": "Credit",
-            "PaymentMode": "Cash",
-            "Amount": $('#cihCreditAmount').val(),
-            "Type": "SalePurchase",
-            "ProfitMargin": $('#creditpr').val(),
-            "AddedBy" :localStorage.getItem("myVar"),
-            "Name": $('#cName').val()
+        if (!$('#cihCreditAmount').val()) {} else {
+            addCashInHand($('#cihCreditAmount').val())
         }
-            
-        }
-        if($('#sel3').val()=="Cheque"){
-         data = {
-            "InvestorID": $('#creditInvestor').val(),
-            "CarID": $('#creditCarID').val(),
-            "DO": $('#11').val(),
-            "TransactionType": "Credit",
-            "PaymentMode": "Cheque",
-            "Amount": $('#chequeCreditAmount').val(),
-            "ChequeNo":$('#cNoCredit').val(),
-            "AccountID":$('#accountIdCredit').val(),
-            "Type": "SalePurchase",
-            "ProfitMargin": $('#creditpr').val(),
-            "AddedBy" :localStorage.getItem("myVar"),
-            "Name": $('#cName').val()
 
+        for (var i = 0; i <= countCiCar; i++) {
+            if (!$('#chequeCreditAmount' + i + '').val() || !$('#accountIdCredit' + i + '').val() || !$('#cNoCredit' + i + '').val() || $('#accountIdCredit' +
+                    i + '').val() == "Select Account") {} else {
+                addCheque($('#chequeCreditAmount' + i + '').val(), $('#cNoCredit' + i + '').val(), $('#accountIdCredit' + i + '').val())
+            }
         }
-            
-        }
-        if($('#sel3').val()=="Online Payment"){
-         data = {
-            "InvestorID": $('#creditInvestor').val(),
-            "CarID": $('#creditCarID').val(),
-            "DO": $('#11').val(),
-            "TransactionType": "Credit",
-            "AccountID":$('#accountIdCreditOnline').val(),
-            "PaymentMode": "IBFT",
-            "Amount": $('#onlineCreditAmount').val(),
-            "Type": "SalePurchase",
-            "ProfitMargin": $('#creditpr').val(),
-            "AddedBy" :localStorage.getItem("myVar"),
-            "Name": $('#cName').val()
+        for (var j = 0; j <= countOCar; j++)
+            if (!$('#accountIdCreditOnline' + j).val() || !$('#onlineCreditAmount' + j).val() || $('#accountIdCreditOnline' + j).val() == "Select Account") {} else {
+                addOnline($('#accountIdCreditOnline' + j).val(), $('#onlineCreditAmount' + j).val())
+            }
 
-        }*/
-        var TotalAmount = (parseInt($('#cihCreditAmount').val()) + parseInt($('#chequeCreditAmount').val()) + parseInt($('#onlineCreditAmount').val()));
-        var pay = [];
-        pay.push({ "Mode": "Cash", "Amount": parseInt($('#cihCreditAmount').val()) });
-        pay.push({ "Mode": "Cheque", "Amount": parseInt($('#chequeCreditAmount').val()), "AccountID": $('#accountIdCredit').val(), "ChequeNo": $('#cNoCredit').val() });
-        pay.push({ "Mode": "IBFT", "AccountID": $('#accountIdCreditOnline').val(), "Amount": parseInt($('#onlineCreditAmount').val()) });
         data = {
             "CarID": $('#creditCarID').val(),
             "DO": $('#11').val(),
@@ -1259,10 +1394,9 @@ function addCredit() {
             "TransactionType": "Credit",
             "Type": "SalePurchase",
             "AddedBy": localStorage.getItem("myVar"),
+            "SalePrice": $("#sp").val(),
             "ProfitMargin": $('#creditpr').val()
         }
-
-
 
         $.post(apiPath + "DayBooks", data, function(success, status) {
             location.reload();
@@ -1310,6 +1444,11 @@ function addCredit() {
             });
         }
     }
+    if ($('#sel1').val() == "Supplier") {
+        $.get(apiPath + "DayBooks/SupplierToCar?SupplierID=" + $('#debitSupplier').val() + "&CarID=" + $('#debitCarSupplier').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
+            location.reload();
+        });
+    }
 
 }
 
@@ -1327,23 +1466,6 @@ $('#creditInvestor').on('change', function() {
             }
         }, this)
         $('#creditCarID').append(html);
-    });
-
-
-});
-$('#bankListCredit').on('change', function() {
-    $('#accountIdCredit').html('');
-
-    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#bankListCredit').val() + "", function(success) {
-
-        var html = '';
-        html += `<option>Select Account</option>`
-
-        success.forEach(function(ele) {
-
-            html += `<option>` + ele.AccountID + `</option>`
-        }, this)
-        $('#accountIdCredit').append(html);
     });
 
 
@@ -1498,23 +1620,7 @@ $('#iBListCreditCheque').on('change', function() {
 
 
 });
-$('#bankListCreditOnline').on('change', function() {
-    $('#accountIdCreditOnline').html('');
 
-    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#bankListCreditOnline').val() + "", function(success) {
-
-        var html = '';
-        html += `<option>Select Account</option>`
-
-        success.forEach(function(ele) {
-
-            html += `<option>` + ele.AccountID + `</option>`
-        }, this)
-        $('#accountIdCreditOnline').append(html);
-    });
-
-
-});
 $('#sBListDebitCheque').on('change', function() {
     $('#sAListDebitCheque').html('');
 
@@ -1598,41 +1704,25 @@ $('#creditCarID').on('change', function() {
 
 
 });
-$('#whosCar').on('change', function() {
-    var choice = $('#whosCar').val();
-    if (choice == "Investor") {
-        $('#investorsCar').css('display', 'block');
-        $('#suppliersCar').css('display', 'none');
-    } else if (choice == "Supplier") {
-        $('#investorsCar').css('display', 'none');
-        $('#suppliersCar').css('display', 'block');
+// $('#whosCar').on('change', function() {
+//     var choice = $('#whosCar').val();
+//     if (choice == "Investor") {
+//         $('#investorsCar').css('display', 'block');
+//         $('#suppliersCar').css('display', 'none');
+//     } else if (choice == "Supplier") {
+//         $('#investorsCar').css('display', 'none');
+//         $('#suppliersCar').css('display', 'block');
 
-    }
-    /* $.get(apiPath +"Accounts?filter[where][AccountID]="+$('#accountIdCredit').val()+"", function(success){
-         var html='';
-         $('#accNoCredit').val(success[0].AccountNo);
-     });*/
-
-
-});
-$('#accountIdCredit').on('change', function() {
-
-    $.get(apiPath + "Accounts?filter[where][AccountID]=" + $('#accountIdCredit').val() + "", function(success) {
-        var html = '';
-        $('#accNoCredit').val(success[0].AccountNo);
-    });
+//     }
+//     /* $.get(apiPath +"Accounts?filter[where][AccountID]="+$('#accountIdCredit').val()+"", function(success){
+//          var html='';
+//          $('#accNoCredit').val(success[0].AccountNo);
+//      });*/
 
 
-});
-$('#accountIdCreditOnline').on('change', function() {
-
-    $.get(apiPath + "Accounts?filter[where][AccountID]=" + $('#accountIdCreditOnline').val() + "", function(success) {
-        var html = '';
-        $('#accNoCreditOnline').val(success[0].AccountNo);
-    });
+// });
 
 
-});
 
 function sListDebit() {
     $.get(apiPath + "Suppliers", function(success, status) {
@@ -1842,7 +1932,6 @@ function iBListCreditOnline() {
     $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
 
         var html = '';
-        console.log(success);
         success.forEach(function(ele) {
             if (ele.Name != "Profit Loss") {
                 html += `<option>` + ele.Name + `</option>`
@@ -1961,21 +2050,7 @@ function getBankListAccountBdiv() {
 
 }
 
-function getBankListCreditOnline() {
-    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
 
-        var html = '';
-
-        success.forEach(function(ele) {
-            if (ele.Name != "Profit Loss") {
-                html += `<option>` + ele.Name + `</option>`
-            }
-        }, this)
-
-        $('#bankListCreditOnline').append(html);
-    });
-
-}
 
 function iBListCreditCheque() {
     $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
@@ -1993,21 +2068,7 @@ function iBListCreditCheque() {
 
 }
 
-function getBankListCredit() {
-    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
 
-        var html = '';
-
-        success.forEach(function(ele) {
-            if (ele.Name != "Profit Loss") {
-                html += `<option>` + ele.Name + `</option>`
-            }
-        }, this)
-
-        $('#bankListCredit').append(html);
-    });
-
-}
 
 function getCustomersListCredit() {
     $.get(apiPath + "Customers", function(success, status) {
@@ -2032,29 +2093,24 @@ function addDebit() {
      }
      console.log(data);*/
     if ($('#dsel1').val() == "Car") {
-        if ($(whosCar).val() == "Investor") {
-            var investors = [];
-            var percentage;
-            console.log(carAmount)
-            for (var i = 0; i <= count; i++) {
-                percentage = ($('#investmentDebit' + i + '').val() / carAmount) * 100;
+        var investors = [];
+        var percentage;
+        console.log(carAmount)
+        for (var i = 0; i <= count; i++) {
+            percentage = ($('#investmentDebit' + i + '').val() / carAmount) * 100;
 
-                investors.push({ "InvestorID": $('#debitInvestor' + i + '').val(), "Investment": $('#investmentDebit' + i + '').val(), "Percentage": percentage });
-            }
-            console.log(investors);
-            var data = {
-                "array": investors
-            }
+            investors.push({ "InvestorID": $('#debitInvestor' + i + '').val(), "Investment": $('#investmentDebit' + i + '').val(), "Percentage": percentage });
+        }
+        console.log(investors);
+        var data = {
+            "array": investors
+        }
 
-            $.post(apiPath + "Investors/InvestorsToCar?CarID=" + $('#debitCar').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", data, function(success, status) {
-                location.reload();
-            });
-        }
-        if ($(whosCar).val() == "Supplier") {
-            $.get(apiPath + "DayBooks/SupplierToCar?SupplierID=" + $('#debitSupplier').val() + "&CarID=" + $('#debitCarSupplier').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
-                location.reload();
-            });
-        }
+        $.post(apiPath + "Investors/InvestorsToCar?CarID=" + $('#debitCar').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", data, function(success, status) {
+            location.reload();
+        });
+
+
     }
 
     if ($('#dsel1').val() == "Banks") {
@@ -2367,8 +2423,7 @@ $('#debit').on('show.bs.modal', function() {
     sListDebitOnline();
     sBListDebitCheque();
     sBListDebitOnline();
-    getSupplierlist();
-    getCarListDebitSupplier();
+
     $('#ifCount').hide();
 
 });
@@ -2384,7 +2439,12 @@ $('#credit').on('show.bs.modal', function() {
     iBListCreditCheque();
     iListCreditOnline();
     iBListCreditOnline();
-
+    getSupplierlist();
+    getCarListDebitSupplier();
+    register(0);
+    register2(0);
+    register3(0);
+    register4(0);
     /* getBankListAccountBdiv();
      getBankListBdivCheque();
      getBankListBdivCheque2();
