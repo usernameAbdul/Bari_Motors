@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -295,19 +296,19 @@
             <!-- update investor -->
             <!-- Main content -->
             <section class="content">
-                <table class="table table-bordered">
+                <table id="tableBodyInvestor" class="table table-striped">
                     <thead>
                         <tr>
                             <th>Investor ID</th>
                             <th>Name</th>
                             <th>Contact No</th>
-                            <th>Type</th>
-                            <th>Invesment</th>
+                            <!-- <th>Type</th> -->
+                            <th>Investment</th>
                             <th>Functionalities</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBodyInvestor">
-                    </tbody>
+                    <!-- <tbody id="tableBodyInvestor">
+                    </tbody> -->
                 </table>
             </section>
             <!-- /.content -->
@@ -359,6 +360,8 @@
     <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -366,7 +369,41 @@
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <script type="text/javascript">
-        getInvestor();
+        getInvestorD();
+
+        function getInvestorD() {
+
+            var table = $('#tableBodyInvestor').DataTable({
+                "ajax": {
+                    "url": "http://52.187.168.31:3000/api/Investors",
+                    "dataSrc": ""
+                },
+                "columns": [{
+                    "data": "InvestorID"
+                }, {
+                    "data": "Name"
+                }, {
+                    "data": "ContactNo"
+
+                }, {
+                    "data": "Investment"
+                }, {
+                    "data": "Functionalities"
+                }],
+
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a> <button class="btnUsama"><u>veiw more</button></u>'
+                }]
+            });
+
+            $('#tableBodyInvestor tbody').on('click', "button", function() {
+                var data = table.row($(this).parents('tr')).data();
+                //alert(data.InvestorID);
+                viewInvestor(data.InvestorID);
+            });
+        }
     </script>
 </body>
 
