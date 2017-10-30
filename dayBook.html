@@ -29,6 +29,8 @@ folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -1187,7 +1189,7 @@ folder instead of downloading all of them to reduce the load. -->
                 <div class="row">
                     <div class="col-lg-6">
                         <h2 class="text-align">Credit <a href="#" data-toggle="modal" onclick="countZero()" data-target="#credit"><span><i class="fa fa-plus-square" aria-hidden="true"></i></span></a></h2>
-                        <table class="table table-bordered">
+                        <table id="creditTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Reason</th>
@@ -1195,13 +1197,13 @@ folder instead of downloading all of them to reduce the load. -->
                                     <th>Amount</th>
                                 </tr>
                             </thead>
-                            <tbody id="creditTable">
-                            </tbody>
+                            <!-- <tbody id="creditTable">
+                            </tbody> -->
                         </table>
                     </div>
                     <div class="col-lg-6">
                         <h2 class="text-align">Debit <a href="#" data-toggle="modal" onclick="dcountZero()" data-target="#debit"><span><i class="fa fa-plus-square" aria-hidden="true"></i></span></a></h2>
-                        <table class="table table-bordered">
+                        <table id="debitTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Reason</th>
@@ -1209,8 +1211,8 @@ folder instead of downloading all of them to reduce the load. -->
                                     <th>Amount</th>
                                 </tr>
                             </thead>
-                            <tbody id="debitTable">
-                            </tbody>
+                            <!-- <tbody id="debitTable">
+                            </tbody> -->
                         </table>
             </section>
             <!-- /.content -->
@@ -1247,10 +1249,7 @@ immediately after the control sidebar -->
             <!-- jvectormap -->
             <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
             <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-            <script type="text/javascript">
-                getCreditTransaction();
-                getDebitTransaction();
-            </script>
+
             <!-- jQuery Knob Chart -->
             <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
             <!-- daterangepicker -->
@@ -1264,12 +1263,53 @@ immediately after the control sidebar -->
             <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
             <!-- FastClick -->
             <script src="bower_components/fastclick/lib/fastclick.js"></script>
+            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
             <!-- AdminLTE App -->
             <script src="dist/js/adminlte.min.js"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
             <script src="dist/js/pages/dashboard.js"></script>
             <!-- AdminLTE for demo purposes -->
             <script src="dist/js/demo.js"></script>
+
+            <script type="text/javascript">
+                getCreditTransactionD();
+                getDebitTransactionD();
+
+                function getCreditTransactionD() {
+
+                    var table = $('#creditTable').DataTable({
+                        "ajax": {
+                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Credit",
+                            "dataSrc": ""
+                        },
+                        "columns": [{
+                            "data": "Reason"
+                        }, {
+                            "data": "DO"
+                        }, {
+                            "data": "Amount"
+                        }],
+                    });
+                }
+
+                function getDebitTransactionD() {
+
+                    var table = $('#debitTable').DataTable({
+                        "ajax": {
+                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Debit",
+                            "dataSrc": ""
+                        },
+                        "columns": [{
+                            "data": "Reason"
+                        }, {
+                            "data": "DO"
+                        }, {
+                            "data": "Amount"
+                        }],
+                    });
+                }
+            </script>
 </body>
 
 </html>
