@@ -257,6 +257,10 @@ table {
     display: none;
 }
 
+#customerDiv {
+    display: none;
+}
+
 #investorDivCredit {
     display: none;
 }
@@ -422,7 +426,7 @@ right connector from last child*/
 
 .trees li a {
     border: 1px solid #ccc;
-    padding: 50px 26px;
+    padding: 30px 109px;
     text-decoration: none;
     color: #666;
     font-family: arial, verdana, tahoma;

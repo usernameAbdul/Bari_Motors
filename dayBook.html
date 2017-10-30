@@ -212,10 +212,24 @@ folder instead of downloading all of them to reduce the load. -->
 <option>Banks</option>
 <option>Investment</option>
 <option>Supplier</option>
+<option>Customer</option>
 </select>
                                         </div>
                                         <hr>
-
+                                        <div id="customerDiv">
+                                            <div class="form-group">
+                                                <label>Customer List:</label>
+                                                <select class="form-control" id="creditCustomerList">
+<option>Select Customer</option>
+</select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Cars:</label>
+                                                <select class="form-control" id="custCarList">
+<option>Select Car</option>
+</select>
+                                            </div>
+                                        </div>
                                         <div id="suppliersCar">
                                             <div class="form-group">
                                                 <label>Suppliers List:</label>
@@ -233,6 +247,7 @@ folder instead of downloading all of them to reduce the load. -->
 
                                         <div id="investorDivCredit">
                                             <div class="form-group">
+                                                <label>Transaction Type:</label>
                                                 <select class="form-control" id="investment">
 <label>Transaction Mode:</label>
 <option >Cash In Hand</option>
@@ -330,6 +345,10 @@ folder instead of downloading all of them to reduce the load. -->
                                                 <select class="form-control" id="creditCarID">
 <option>Select Car</option>
 </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Purchase Price</label>
+                                                <input type="text" class="form-control" id="purchasePriceCredit" value="Select a Car first" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label for="usr">Profit Ratio:</label>
@@ -723,6 +742,54 @@ folder instead of downloading all of them to reduce the load. -->
 
                                         </div>
                                         <!-- Investment div Debit ends here -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         <div id="expense">
                                             <div class="form-group">
                                                 <label>Expense Type:</label>
@@ -732,54 +799,78 @@ folder instead of downloading all of them to reduce the load. -->
 <option>Showroom Expense</option>
 </select>
                                             </div>
+
+
+
+
                                             <div id="expDiv1">
                                                 <div class="form-group">
                                                     <label for="usr">Date:</label>
-                                                    <input type="date" class="form-control" id="do">
+                                                    <input type="date" class="form-control" id="expDiv1Date">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="usr">D.O:</label>
-                                                    <input type="text" class="form-control" id="do">
+                                                    <label>Investors:</label>
+                                                    <select class="form-control" id="expDiv1InvestorId">
+    <option>Select Investor</option>
+    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Car Id:</label>
-                                                    <select class="form-control" id="exp">
-<option>C_1</option>
-</select>
+                                                    <select class="form-control" id="expDiv1CarId">
+    <option>Select Car</option>
+    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="usr">D.O:</label>
+                                                    <input type="text" class="form-control" id="expDiv1Do">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="usr">Cost:</label>
+                                                    <input type="text" class="form-control" id="expDiv1Cost">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="usr">Description:</label>
-                                                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                                                    <textarea class="form-control" rows="5" id="expDiv1Description"></textarea>
                                                 </div>
                                             </div>
+
+
+
+
                                             <div id="expDiv2">
                                                 <div class="form-group">
                                                     <label for="usr">Date:</label>
-                                                    <input type="date" class="form-control" id="do">
+                                                    <input type="date" class="form-control" id="expDiv2Date">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="usr">D.O:</label>
-                                                    <input type="text" class="form-control" id="do">
+                                                    <label for="usr">Cost:</label>
+                                                    <input type="text" class="form-control" id="expDiv2Cost">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="usr">Description:</label>
-                                                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                                                    <textarea class="form-control" rows="5" id="expDiv2Comment"></textarea>
                                                 </div>
                                             </div>
+
+
+
                                             <div id="expDiv3">
                                                 <div class="form-group">
                                                     <label for="usr">Date:</label>
-                                                    <input type="date" class="form-control" id="do">
+                                                    <input type="date" class="form-control" id="expDiv3Date">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="usr">D.O:</label>
-                                                    <input type="text" class="form-control" id="do">
+                                                    <label for="usr">Cost:</label>
+                                                    <input type="text" class="form-control" id="expDiv3Cost">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="usr">Description:</label>
-                                                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                                                    <textarea class="form-control" rows="5" id="expDiv3Comment"></textarea>
                                                 </div>
                                             </div>
+
+
+
                                             <div class="form-group">
                                                 <label>Transaction Type:</label>
                                                 <select class="form-control" id="expCash">
@@ -790,62 +881,85 @@ folder instead of downloading all of them to reduce the load. -->
                                             </div>
                                             <div class="expcashChecked" id="expbankDiv1">
                                                 <hr>
-                                                <h3 class="text-align">Cash In Hand <span><i class="fa fa-plus expcihBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times expcihBankRemove" aria-hidden="true"></i></span></h3>
+                                                <h3 class="text-align">Cash In Hand </h3>
                                                 <div class="form-group">
                                                     <label for="usr">Amount:</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="expCih">
                                                 </div>
                                             </div>
+
+
                                             <div class="expchequeChecked" id="expbankDiv2">
                                                 <hr>
-                                                <h3 class="text-align">Cheque Info <span><i class="fa fa-plus expciBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times expciBankRemove" aria-hidden="true"></i></span></h3>
+                                                <h3 class="text-align">Cheque Info </h3>
                                                 <div class="form-group">
                                                     <label>Bank's list:</label >
-<select class="form-control">
-<option>alHabib</option>
-<option>blah</option>
-<option>Others</option>
+<select class="form-control" id="blExpCheque">
+<option>Select Bank</option>
 </select>
 </div>
 <div class="form-group">
-<label for="usr">Check No:</label>
-                                                    <input type="text" class="form-control" id="usr">
+    <label for="usr">Account ID:</label>
+                                                    <select class="form-control" id="alExpCheque">
+        <option>Select Account</option>
+        </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="usr">Account No:</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="anExpCheque">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="usr">Check No:</label>
+                                                    <input type="text" class="form-control" id="cnExpCheque">
+                                                </div>
+
                                                 <div class="form-group">
                                                     <label for="usr">Amount:</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="amountExpCheque">
                                                 </div>
-                                                <div class="form-group">
-                                                    <div><label for="usr">Status:</label></div>
-                                                    <label class="radio-inline"><input type="radio"  value="1" name="option">Paid </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <label class="radio-inline"><input type="radio"  value="0" name="option">Unpaid</label>
-                                                </div>
+
                                             </div>
+
                                             <div class="exponlineChecked " id="expbankDiv3">
                                                 <hr>
-                                                <h3 class="text-align">Online Transfer <span><i class="fa fa-plus expoBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times expoBankRemove" aria-hidden="true"></i></span></h3>
+                                                <h3 class="text-align">Online Transfer </h3>
                                                 <div class="form-group">
                                                     <label>Bank's list:</label>
-                                                    <select class="form-control">
-<option>alHabib</option>
-<option>blah</option>
-<option>Others</option>
+                                                    <select class="form-control" id="blExpOnline">
+<option>Bank List</option>
 </select>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label>Account ID:</label>
+                                                    <select class="form-control" id="alExpOnline">
+    <option>Select Account</option>
+    </select>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="usr">Account No:</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="anExpOnline">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="usr">Amount:</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="amountExpOnline">
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         <!-- exp div ends here -->
                                         <div id="dcarDiv">
                                             <!-- car div -->
@@ -857,6 +971,10 @@ folder instead of downloading all of them to reduce the load. -->
                                                     <select class="form-control" id="debitCar">
 <option>Select Car</option>
 </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="usr">Purchase Price:</label>
+                                                    <input type="text" class="form-control" id="purchasePriceDebit" value="Select a Car first" disabled>
                                                 </div>
 
                                                 <h2>Investor's Data <span><a href="#" onclick="investorStuff()"><i class="fa fa-plus" aria-hidden="true"></i></a></span><span><a id="ifCount" href="#" onclick="investorStuffRemove()"><i class="fa fa-times" aria-hidden="true"></i></a></span></h2>
@@ -964,7 +1082,7 @@ folder instead of downloading all of them to reduce the load. -->
                                             </div>
                                             <div class="dcashChecked" id="dbankDiv1">
                                                 <hr>
-                                                <h3 class="text-align">Cash In Hand <span><i class="fa fa-plus dcihBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times dcihBankRemove" aria-hidden="true"></i></span></h3>
+                                                <h3 class="text-align">Cash In Hand </h3>
                                                 <div class="form-group">
                                                     <label>Bank's list:</label>
                                                     <select class="form-control" id="bankListCreditBdiv">
@@ -984,7 +1102,7 @@ folder instead of downloading all of them to reduce the load. -->
                                             </div>
                                             <div class="dchequeChecked" id="dbankDiv2">
                                                 <hr>
-                                                <h3 class="text-align">Cheque Info <span><i class="fa fa-plus dciBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times dciBankRemove" aria-hidden="true"></i></span></h3>
+                                                <h3 class="text-align">Cheque Info </h3>
                                                 <div class="form-group">
                                                     <label>Bank's list:</label >
 <select class="form-control" id="bankListBdivCheque">
@@ -1020,7 +1138,7 @@ folder instead of downloading all of them to reduce the load. -->
                                             </div>
                                             <div class="donlineChecked " id="dbankDiv3">
                                                 <hr>
-                                                <h3 class="text-align">Online Transfer <span><i class="fa fa-plus doBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times doBankRemove" aria-hidden="true"></i></span></h3>
+                                                <h3 class="text-align">Online Transfer</h3>
                                                 <div class="form-group">
                                                     <label>Bank's list:</label >
 <select class="form-control" id="bankListBdivOnline">

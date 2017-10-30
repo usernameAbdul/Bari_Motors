@@ -94,6 +94,7 @@ $('#sel1').on('change', function() {
         $('#bank').css('display', 'none');
         $('#investorDivCredit').css('display', 'none');
         $('#suppliersCar').css('display', 'none');
+        $('#customerDiv').css('display', 'none');
 
     } else if (name == "Banks") {
 
@@ -102,6 +103,7 @@ $('#sel1').on('change', function() {
         $('#bank').css('display', 'block');
         $('#investorDivCredit').css('display', 'none');
         $('#suppliersCar').css('display', 'none');
+        $('#customerDiv').css('display', 'none');
 
 
     } else if (name == "Investment") {
@@ -110,6 +112,7 @@ $('#sel1').on('change', function() {
         $('#carDiv').css('display', 'none');
         $('#bank').css('display', 'none');
         $('#suppliersCar').css('display', 'none');
+        $('#customerDiv').css('display', 'none');
 
 
     } else if (name == "Supplier") {
@@ -117,6 +120,15 @@ $('#sel1').on('change', function() {
         $('#carDiv').css('display', 'none');
         $('#bank').css('display', 'none');
         $('#suppliersCar').css('display', 'block');
+        $('#customerDiv').css('display', 'none');
+
+    } else if (name == "Customer") {
+        console.log("inside customer")
+        $('#investorDivCredit').css('display', 'none');
+        $('#carDiv').css('display', 'none');
+        $('#bank').css('display', 'none');
+        $('#suppliersCar').css('display', 'none');
+        $('#customerDiv').css('display', 'block');
 
     }
 });
@@ -1269,7 +1281,7 @@ function addInvestor() {
         "InvestorID": $("#inId").val(),
         "Name": $("#inName").val(),
         "ContactNo": $("#inCno").val(),
-        "Investment": 5000000,
+        "Investment": $("#inInvestment").val(),
         "AddedBy": localStorage.getItem("myVar"),
         "Type": "Investor"
     }
@@ -1285,10 +1297,104 @@ function getInvestor() {
         var html = '';
 
         success.forEach(function(ele) {
-            html += '<tr>' + '<td>' + ele.InvestorID + '</td><td>' + ele.Name + '</td><td>' + ele.ContactNo + '</td><td>' + ele.Type + '</td><td>' + ele.Investment + '</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a> <a href="viewMore.html"><u>veiw more</a></u></td></tr>'
+            html += '<tr>' + '<td>' + ele.InvestorID + '</td><td>' + ele.Name + '</td><td>' + ele.ContactNo + '</td><td>' + ele.Type + '</td><td>' + ele.Investment + `</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a> <a href="#" onclick="viewInvestor('${ele.InvestorID}')"><u><small>view more</small></a></u></td></tr>`
+
         }, this)
 
         $('#tableBodyInvestor').append(html);
+    });
+}
+
+function viewInvestor(ele) {
+    localStorage.setItem("investorID", ele);
+    window.location = "viewMore.html";
+}
+
+function getInvestorView(id) {
+
+    $.get(apiPath + "Investors?filter[where][InvestorID]=" + id, function(success, status) {
+        success.forEach(function(ele) {
+            $("#investorHeading").html(ele.InvestorID + " <small>Control panel</small>");
+            $("#viewInvestment").html("<b>Investment</b> :" + ele.Investment);
+
+        });
+    });
+    var html;
+    $.get(apiPath + "Transactions?filter[where][InvestorID]=" + id, function(success) {
+        if (success.length == 0) {
+            toastr.error("No Entries Yet");
+        }
+        success.forEach(function(ele) {
+
+            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
+            $('#viewInvestorTable').append(html);
+        });
+    });
+
+}
+
+function displayCash() {
+    $.get(apiPath + "Accounts?filter[where][AccountID]=1", function(success) {
+        $("#displayCash").html("Rs. " + success[0].Balance);
+    });
+}
+
+function getCihData() {
+    $.get(apiPath + "Transactions?filter[where][Via]=Cash", function(success) {
+        if (success.length == 0) {
+            toastr.error("No Entries Yet");
+        }
+        success.forEach(function(ele) {
+
+            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
+            $('#cihTable').append(html);
+        });
+    });
+}
+
+function getAccountDetailId(id) {
+    localStorage.setItem("account", id);
+    window.location = "accountsDetail.html";
+}
+
+function generateAccountDiv() {
+    $.get(apiPath + "Accounts", function(success) {
+
+        success.forEach(function(ele) {
+            if (ele.BankName != "Cash In Hand" && ele.BankName != "Profit Loss") {
+                html = `<div class="col-lg-3 col-xs-6 ">
+            <!-- small box -->
+            <div class="small-box bg-yellow ">
+                <div class="inner ">
+                    <h3>Rs. ${ele.Balance}</h3>
+                    <h4><b>${ele.BankName}</b> : ${ele.AccountID}</h4>
+                </div>
+                <div class="icon ">
+                    <i class="fa fa-university "></i>
+                </div>
+                <a href="#" class="small-box-footer" onclick="getAccountDetailId('${ele.AccountID}')">More info <i class="fa fa-arrow-circle-right "></i></a>
+            </div>
+        </div>`
+                $('#allAccounts').append(html);
+
+
+
+            }
+        });
+    });
+}
+
+function getAccountData(id) {
+    $.get(apiPath + "Transactions?filter[where][PaymentAccount]=" + id, function(success) {
+        if (success.length == 0) {
+            toastr.error("No Entries Yet");
+        }
+        success.forEach(function(ele) {
+
+            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
+            $('#viewAccountTable').append(html);
+        });
+        $("#AccountIdIs").html("AccountID : " + id);
     });
 }
 
@@ -1313,11 +1419,52 @@ function getCustomer() {
         var html = '';
 
         success.forEach(function(ele) {
-            html += '<tr>' + '<td>' + ele.CustomerID + '</td><td>' + ele.Name + '</td><td>' + ele.FatherName + '</td><td>' + ele.ContactNo + '</td><td>' + ele.Address + '</td><td>' + ele.CNIC + '</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td></tr>'
+            html += ` <tr>  <td>  ${ele.CustomerID}  </td><td> ${ ele.Name}  </td><td>  ${ele.FatherName}  </td><td>  ${ele.ContactNo}  </td><td>  ${ele.Address}  </td><td>  ${ele.CNIC}  </td><td> ${ele.Payable}  </td><td>  ${ele.Balance}  </td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> <a href="#" onclick="setCustId('${ele.CustomerID}')"><span><small><u>view more</u></small></span> </a></td></tr>`
         }, this)
 
         $('#tableBodyCustomer').append(html);
     });
+}
+
+function setCustId(id) {
+    localStorage.setItem("custId", id)
+    window.location = "customerDetails.html";
+}
+
+function getCustomerView(id) {
+
+    $.get(apiPath + "Transactions?filter[where][CustomerID]=" + id, function(success) {
+        if (success.length == 0) {
+            toastr.error("No Entries Yet");
+        }
+        success.forEach(function(ele) {
+            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
+            $('#viewCustomerTable').append(html);
+        })
+
+    })
+}
+
+function getUnpaidCheques() {
+
+    $.get(apiPath + "Transactions?filter[where][PaidStatus]=false", function(success) {
+        if (success.length == 0) {
+            toastr.error("No Entries Yet");
+        }
+        $("#chequeStatus").html(success.length);
+
+    })
+}
+
+function getCustomerBalanceAndPayable(id) {
+    $.get(apiPath + "Customers?filter[where][CustomerID]=" + id, function(success) {
+        $("#viewCustPayable").html("<b>Payable </b>:" + success[0].Payable);
+        $("#viewCustBalance").html("<b>Balance </b>:" + success[0].Balance);
+        $("#customerHeading").html("<b>Customer ID </b>:" + success[0].CustomerID);
+
+
+
+    })
 }
 
 function addAccount() {
@@ -1333,6 +1480,77 @@ function addAccount() {
     });
 }
 
+function getCustCount() {
+    $.get(apiPath + "Customers", function(success) {
+        var custCount = success.length;
+        $("#custCount").html(custCount)
+
+    })
+}
+
+function getprofitAndLostTable() {
+
+    $.get(apiPath + "Transactions?filter[where][PaymentAccount]=Profit Loss", function(success) {
+        var html;
+
+        success.forEach(function(ele) {
+            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
+            $('#profitLossTable').append(html);
+        });
+
+    })
+}
+var balance;
+
+function getprofitAndLostCount() {
+
+    $.get(apiPath + "Accounts?filter[where][AccountID]=2", function(success) {
+        $("#profitAndLossCount").html("Rs. " + success[0].Balance);
+        balance = success[0].Balance;
+
+    })
+}
+
+function getCustomerBalance() {
+    var balance = 0;
+    $.get(apiPath + "Customers?", function(success) {
+        success.forEach(function(ele) {
+            balance += ele.Balance;
+        })
+        $("#custBalance").html("Rs. " + balance)
+    })
+}
+
+function getInvestorCount() {
+    $.get(apiPath + "Investors", function(success) {
+        var custCount = success.length;
+        $("#investCount").html(custCount)
+
+    })
+}
+
+function carSold(id) {
+    $.get(apiPath + "Cars/InvestorSoldCar?InvestorID=" + id, function(success) {
+        $("#viewCarSold").html("<b>Car Sold </b>:" + success.length)
+    })
+}
+
+function carAssigned(id) {
+    $.get(apiPath + "Cars?filter[where][and][0][InvestorID]=" + id + "&filter[where][and][1][Status]=Available", function(success) {
+        $("#viewCarAssigned").html("<b>Car Assigned </b>:" + success.length)
+    })
+}
+
+function getInvestment() {
+    $.get(apiPath + "Investors", function(success) {
+        var balance = 0;
+        success.forEach(function(ele) {
+            balance += ele.Investment;
+        });
+        $("#currentInvestment").html("Rs. " + balance);
+    });
+}
+
 function getAccount() {
     $.get(apiPath + "Accounts?filter[where][BankName][neq]=Cash In Hand", function(success, status) {
 
@@ -1340,7 +1558,7 @@ function getAccount() {
 
         success.forEach(function(ele) {
             if (ele.BankName != "Profit Loss") {
-                html += '<tr>' + '<td>' + ele.BankName + '</td><td>' + ele.AccountID + '</td><td>' + ele.AccountNo + '</td><td>' + ele.Balance + '</td><td>' + ele.AddedBy + '</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td></tr>'
+                html += `<tr><td> ${ele.BankName} </td><td>${ele.AccountID} </td><td>${ele.AccountNo} </td><td>${ele.Balance} </td><td> ${ele.AddedBy} </td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span></a><span> <a href="#" onclick="getAccountDetailId('${ ele.AccountID }')"><small><u>view more</u><small></span> </a></td></tr>`
             }
         }, this)
 
@@ -1366,6 +1584,26 @@ function addOnline(account, amount) {
     TotalAmount += parseInt(amount);
 
 }
+$('#creditCarID').on('change', function() {
+
+    $.get(apiPath + "Cars?filter[where][CarID]=" + $('#creditCarID').val() + "", function(success) {
+        var html = '';
+        //console.log(success[0].Status);
+
+        $('#creditpr').val(success[0].ProfitMargin);
+        if ($("#creditCarID").val() != "Select Car") {
+            $("#purchasePriceCredit").val(success[0].PurchasePrice);
+        } else {
+            $("#purchasePriceCredit").val("Select a Car first")
+        }
+        /*$('#cihCreditAmount').val(success[0].SalePrice);
+        $("#chequeCreditAmount").val(success[0].SalePrice);  
+        $("#onlineCreditAmount").val(success[0].SalePrice); */
+    });
+
+
+});
+
 
 function addCredit() {
     var data;
@@ -1395,6 +1633,7 @@ function addCredit() {
             "Type": "SalePurchase",
             "AddedBy": localStorage.getItem("myVar"),
             "SalePrice": $("#sp").val(),
+            "CustomerID": $("creditCustomerList").val(),
             "ProfitMargin": $('#creditpr').val()
         }
 
@@ -1449,7 +1688,11 @@ function addCredit() {
             location.reload();
         });
     }
-
+    if ($('#sel1').val() == "Customer") {
+        $.get(apiPath + "Customers/CarToCustomer?CustomerID=" + $('#creditCustomerList').val() + "&CarID=" + $('#custCarList').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
+            location.reload();
+        });
+    }
 }
 
 
@@ -1458,7 +1701,7 @@ $('#creditInvestor').on('change', function() {
     $.get(apiPath + "Cars/GetCarByInvestor?InvestorID=" + $('#creditInvestor').val() + "", function(success) {
 
         var html = '';
-        html += `<option> Select CarID</option>`
+        html += `<option>Select Car</option>`
 
         success.forEach(function(ele) {
             if (ele.Status != "Sold") {
@@ -1689,21 +1932,7 @@ $('#iBListDebitOnline').on('change', function() {
 
 
 });
-$('#creditCarID').on('change', function() {
 
-    $.get(apiPath + "Cars?filter[where][CarID]=" + $('#creditCarID').val() + "", function(success) {
-        var html = '';
-        //console.log(success[0].Status);
-
-        $('#creditpr').val(success[0].ProfitMargin);
-
-        /*$('#cihCreditAmount').val(success[0].SalePrice);
-        $("#chequeCreditAmount").val(success[0].SalePrice);  
-        $("#onlineCreditAmount").val(success[0].SalePrice); */
-    });
-
-
-});
 // $('#whosCar').on('change', function() {
 //     var choice = $('#whosCar').val();
 //     if (choice == "Investor") {
@@ -2083,9 +2312,159 @@ function getCustomersListCredit() {
     });
 
 }
+$('#expDiv1InvestorId').on('change', function() {
+
+    $('#expDiv1CarId').html('');
+    $.get(apiPath + "Cars/GetCarByInvestor?InvestorID=" + $('#expDiv1InvestorId').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Car</option>`
+
+        success.forEach(function(ele) {
+            if (ele.Status != "Sold") {
+                html += `<option>` + ele.CarID + `</option>`
+
+            }
+        }, this)
+        $('#expDiv1CarId').append(html);
+
+    });
+});
+$('#expDiv1CarId').on('change', function() {
+
+    $.get(apiPath + "Cars?filter[where][CarID]=" + $('#expDiv1CarId').val() + "", function(success) {
+        $("#expDiv1Do").val(success[0].DO);
+
+    });
+});
+
+
+function getInvestorIdForExpense() {
+    $.get(apiPath + "Investors", function(success) {
+
+        success.forEach(function(ele) {
+            $("#expDiv1InvestorId").append("<option>" + ele.InvestorID + "</option>")
+        })
+
+    });
+}
+
+$('#blExpCheque').on('change', function() {
+
+    var html = ''
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#blExpCheque').val() + "", function(success) {
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#alExpCheque').append(html);
+    });
+});
+$('#blExpOnline').on('change', function() {
+
+    var html = ''
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#blExpOnline').val() + "", function(success) {
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#alExpOnline').append(html);
+    });
+});
+$('#alExpCheque').on('change', function() {
+    $.get(apiPath + "Accounts?filter[where][AccountID]=" + $('#alExpCheque').val() + "", function(success) {
+        $('#anExpCheque').val(success[0].AccountNo);
+    });
+});
+$('#alExpOnline').on('change', function() {
+    $.get(apiPath + "Accounts?filter[where][AccountID]=" + $('#alExpOnline').val() + "", function(success) {
+        $('#anExpOnline').val(success[0].AccountNo);
+    });
+});
+
+function getBankListForExpCheque() {
+    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
+
+        var html = '';
+        success.forEach(function(ele) {
+            if (ele.Name != "Profit Loss") {
+                html += `<option>` + ele.Name + `</option>`
+            }
+        }, this)
+
+        $('#blExpCheque').append(html);
+    });
+}
+
+function getBankListForExpOnline() {
+    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
+
+        var html = '';
+        success.forEach(function(ele) {
+            if (ele.Name != "Profit Loss") {
+                html += `<option>` + ele.Name + `</option>`
+            }
+        }, this)
+
+        $('#blExpOnline').append(html);
+    });
+}
+var payExpense = [];
 
 function addDebit() {
+    console.log($('#dsel1').val())
+    var data;
+    if ($('#dsel1').val() == "Expense") {
+        if ($('#exp').val() == "Car Expense") {
+            data = {
+                "Description": $("#expDiv1Description").val(),
+                "Cost": $("#expDiv1Cost").val(),
+                "Type": "CarExpense",
+                "CarID": $("#expDiv1CarId").val(),
+                "Date": $("#expDiv1Date").val(),
+                "Reason": "CarExpense",
+                "AddedBy": localStorage.getItem("myVar"),
+                "PaymentModes": payExpense
+            }
+        }
+        if ($('#exp').val() == "Home Expense") {
+            data = {
+                "Description": $("#expDiv2Comment").val(),
+                "Cost": $("#expDiv2Cost").val(),
+                "Type": "HomeExpense",
+                "Date": $("#expDiv2Date").val(),
+                "Reason": "HomeExpense",
+                "AddedBy": localStorage.getItem("myVar"),
+                "PaymentModes": payExpense
+            }
+        }
+        if ($('#exp').val() == "Showroom Expense") {
+            data = {
+                "Description": $("#expDiv3Comment").val(),
+                "Cost": $("#expDiv3Cost").val(),
+                "Type": "ShowroomExpense",
+                "Date": $("#expDiv3Date").val(),
+                "Reason": "ShowroomExpense",
+                "AddedBy": localStorage.getItem("myVar"),
+                "PaymentModes": payExpense
+            }
+        }
+        if ($("#expCash").val() == "Cash In Hand") {
+            payExpense.push({ "Cost": parseInt($("#expCih").val()), "Mode": "Cash" })
+        } else if ($("#expCash").val() == "Cheque") {
+            if (($("#alExpCheque").val()) != "Select Account") {
+                payExpense.push({ "Mode": "Cheque", "Cost": parseInt($("#amountExpCheque").val()), "AccountID": $("#alExpCheque").val(), "ChequeNo": $("#cnExpCheque").val() })
+            }
+        } else if ($("#expCash").val() == "Online Payment") {
+            if (($("#alExpOnline").val()) != "Select Account") {
+                payExpense.push({ "Mode": "Online Payment", "AccountID": $("#alExpOnline").val(), "Cost": parseInt($("#amountExpOnline").val()) })
+            }
+        }
 
+        $.post(apiPath + "Expenses", data, function(success, status) {
+            location.reload();
+        });
+    }
     /* var data = {
          "InvestorID": $('#debitInvestor').val(),
          "CarID": $('#debitCar').val(),
@@ -2275,16 +2654,45 @@ function getolDModelListCar() {
 }
 
 function getCarListDebitSupplier() {
-    $.get(apiPath + "Cars", function(success, status) {
+    $.get(apiPath + "Cars/GetCarsNoSC", function(success, status) {
         var html = '';
 
         success.forEach(function(ele) {
-            if (!ele.SupplierID) {
-                html += `<option>` + ele.CarID + `</option>`
-            }
+
+            html += `<option>` + ele.CarID + `</option>`
+
         }, this)
 
         $('#debitCarSupplier').append(html);
+    });
+
+}
+
+function getcreditCustomerList() {
+    $.get(apiPath + "Customers", function(success, status) {
+        var html = '';
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.CustomerID + `</option>`
+
+        }, this)
+
+        $('#creditCustomerList').append(html);
+    });
+}
+
+function getCarListCreditCustomer() {
+    $.get(apiPath + "Cars/GetCarsNoSC", function(success, status) {
+        var html = '';
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.CarID + `</option>`
+
+        }, this)
+
+        $('#custCarList').append(html);
     });
 
 }
@@ -2309,8 +2717,9 @@ $('#debitCar').on('change', function() {
         var html = '';
         success.forEach(function(ele) {
             if (!ele.InvestorID && ele.CarID == $('#debitCar').val()) {
-                toastr.success("Price of " + ele.CarID + " is " + ele.PurchasePrice);
+                $("#purchasePriceDebit").val(ele.PurchasePrice);
                 carAmount = ele.PurchasePrice;
+                // console.log(ele.PurchasePrice + " " + ele.CarID);
             }
 
         }, this)
@@ -2341,7 +2750,7 @@ function investorStuffRemove() {
     } else {
         $('#investorStuff' + count + '').remove();
 
-        console.log("investor removed " + count);
+
         count--;
     }
 
@@ -2382,29 +2791,25 @@ $('#carOld').on('show.bs.modal', function() {
     getolDModelListCar();
 });
 
+
+
 function bariProfit() {
-    toastr.success('1000000', 'Bari Profit :');
+
+    toastr.success(balance, 'Bari Profit :');
 }
 
 function newCar() {
-    toastr.success('1000000', 'New Car Profit :');
+    toastr.success('4004720', 'New Car Profit :');
 }
 
 function renovatedCar() {
-    toastr.success('1000000', 'Renovated Car Profit:');
+    toastr.success('3221100', 'Renovated Car Profit:');
 }
 
 function oldCar() {
-    toastr.success('1000000', 'Old Car Profit :');
+    toastr.success('3404000', 'Old Car Profit :');
 }
 
-function carExpense() {
-    toastr.success('1000000', 'Car Expense Profit :');
-}
-
-function bookings() {
-    toastr.success('1000000', 'Booking Profit :');
-}
 $('#debit').on('show.bs.modal', function() {
     getInvestersListDebit(0);
     getCarListDebit();
@@ -2423,6 +2828,9 @@ $('#debit').on('show.bs.modal', function() {
     sListDebitOnline();
     sBListDebitCheque();
     sBListDebitOnline();
+    getBankListForExpCheque();
+    getInvestorIdForExpense();
+    getBankListForExpOnline();
 
     $('#ifCount').hide();
 
@@ -2445,6 +2853,8 @@ $('#credit').on('show.bs.modal', function() {
     register2(0);
     register3(0);
     register4(0);
+    getCarListCreditCustomer();
+    getcreditCustomerList();
     /* getBankListAccountBdiv();
      getBankListBdivCheque();
      getBankListBdivCheque2();

@@ -197,7 +197,7 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>Rs. 150</h3>
+                                <h3 id="profitAndLossCount">Wait..</h3>
                                 <h4>Profit & Loss</h4>
                             </div>
                             <div class="icon">
@@ -225,7 +225,7 @@
                         <!-- small box -->
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3>100</h3>
+                                <h3 id="chequeStatus">Wait..</h3>
                                 <h4>Pending Cheques</h4>
                             </div>
                             <div class="icon">
@@ -255,13 +255,13 @@
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3>Rs. 25,000</h3>
+                                <h3 id="custBalance">Wait..</h3>
                                 <h4>Customer Balances</h4>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="customer.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -270,39 +270,39 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>100</h3>
+                                <h3 id="custCount">Wait..</h3>
                                 <h4>Registered Customers</h4>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="customer.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3 id="investCount">Wait..</h3>
                                 <h4>Registered Investors</h4>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="investors.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3>1,50,000</h3>
+                                <h3 id="currentInvestment">Wait..</h3>
                                 <h4>Current Investment</h4>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-money"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="investors.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -312,63 +312,22 @@
                         <small>Balances</small>
                     </h1>
                 </section>
-                <div class="row ">
+                <div class="row " id="allAccounts">
                     <div class="col-lg-3 col-xs-6 ">
                         <!-- small box -->
                         <div class="small-box bg-green ">
                             <div class="inner ">
-                                <h3>Rs. 15,000</h3>
+                                <h3 id="displayCash">Wait..</h3>
                                 <h4>Cash in Hand</h4>
                             </div>
                             <div class="icon ">
                                 <i class="fa fa-university "></i>
                             </div>
-                            <a href="# " class="small-box-footer ">More info <i class="fa fa-arrow-circle-right "></i></a>
+                            <a href="cihPage.html" class="small-box-footer ">More info <i class="fa fa-arrow-circle-right "></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-xs-6 ">
-                        <!-- small box -->
-                        <div class="small-box bg-yellow ">
-                            <div class="inner ">
-                                <h3>Rs. 1,50,000</h3>
-                                <h4>HBL</h4>
-                            </div>
-                            <div class="icon ">
-                                <i class="fa fa-university "></i>
-                            </div>
-                            <a href="# " class="small-box-footer ">More info <i class="fa fa-arrow-circle-right "></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-xs-6 ">
-                        <!-- small box -->
-                        <div class="small-box bg-red ">
-                            <div class="inner ">
-                                <h3>Rs. 100</h3>
-                                <h4>Meezan Bank</h4>
-                            </div>
-                            <div class="icon ">
-                                <i class="fa fa-university "></i>
-                            </div>
-                            <a href="# " class="small-box-footer ">More info <i class="fa fa-arrow-circle-right "></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-xs-6 ">
-                        <!-- small box -->
-                        <div class="small-box bg-blue ">
-                            <div class="inner ">
-                                <h3>Rs. 1,500</h3>
-                                <h4>UBL</h4>
-                            </div>
-                            <div class="icon ">
-                                <i class="fa fa-university "></i>
-                            </div>
-                            <a href="# " class="small-box-footer ">More info <i class="fa fa-arrow-circle-right "></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
+
                 </div>
             </section>
             <!-- /.content -->
@@ -398,7 +357,18 @@
     <!-- Bootstrap 3.3.7 -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js "></script>
     <script type="text/javascript" src="pages/js/js.js"></script>
+    <script>
+        displayCash();
+        generateAccountDiv();
+        getCustCount();
+        getInvestorCount();
+        getInvestment();
+        getprofitAndLostCount();
+        getCustomerBalance();
+        getUnpaidCheques();
+    </script>
     <!-- Morris.js charts -->
+
     <script src="bower_components/raphael/raphael.min.js "></script>
     <script src="bower_components/morris.js/morris.min.js "></script>
     <!-- Sparkline -->

@@ -188,42 +188,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Profit And Loss
+                    Cash In Hand
                     <small>Control panel</small>
                 </h1>
             </section>
             <!-- Main content -->
-            <div class="container">
-                <div class="row">
-                    <!--
-						We will create a family tree using just.
-						The markup will be simple nested lists
-						-->
-                    <div class="trees">
-                        <ul>
-                            <li>
-                                <a href="#" onclick="bariProfit()">Bari Motors</a>
-                                <ul>
-                                    <li>
-                                        <a href="#" onclick="newCar()">New Cars</a>
-
-                                    </li>
-                                    <li>
-                                        <a href="#" onclick="oldCar()">Old Cars</a>
-
-                                    </li>
-                                    <li>
-                                        <a href="#" onclick="renovatedCar()">Renovated Cars</a>
-
-                                    </li>
-
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="container" style="margin-top: 50px;">
+            <section class="content">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -235,12 +205,11 @@
                             <th>Added By</th>
                         </tr>
                     </thead>
-                    <tbody id="profitLossTable">
+                    <tbody id="cihTable">
 
                     </tbody>
                 </table>
-
-            </div>
+            </section>
             <!-- jQuery 3 -->
             <script src="bower_components/jquery/dist/jquery.min.js "></script>
             <!-- jQuery UI 1.11.4 -->
@@ -254,10 +223,10 @@
             <script type="text/javascript" src="pages/js/js.js"></script>
             <script type="text/javascript" src="pages/js/toastr.min.js"></script>
             <script>
-                getprofitAndLostTable();
-                getprofitAndLostCount();
+                getCihData();
             </script>
             <!-- Morris.js charts -->
+
             <script src="bower_components/raphael/raphael.min.js "></script>
             <script src="bower_components/morris.js/morris.min.js "></script>
             <!-- Sparkline -->
