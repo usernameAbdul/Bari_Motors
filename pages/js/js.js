@@ -1319,17 +1319,7 @@ function getInvestorView(id) {
 
         });
     });
-    var html;
-    $.get(apiPath + "Transactions?filter[where][InvestorID]=" + id, function(success) {
-        if (success.length == 0) {
-            toastr.error("No Entries Yet");
-        }
-        success.forEach(function(ele) {
 
-            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
-            $('#viewInvestorTable').append(html);
-        });
-    });
 
 }
 
@@ -1384,19 +1374,19 @@ function generateAccountDiv() {
     });
 }
 
-function getAccountData(id) {
-    $.get(apiPath + "Transactions?filter[where][PaymentAccount]=" + id, function(success) {
-        if (success.length == 0) {
-            toastr.error("No Entries Yet");
-        }
-        success.forEach(function(ele) {
+// function getAccountData(id) {
+//     $.get(apiPath + "Transactions?filter[where][PaymentAccount]=" + id, function(success) {
+//         if (success.length == 0) {
+//             toastr.error("No Entries Yet");
+//         }
+//         success.forEach(function(ele) {
 
-            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
-            $('#viewAccountTable').append(html);
-        });
-        $("#AccountIdIs").html("AccountID : " + id);
-    });
-}
+//             html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
+//             $('#viewAccountTable').append(html);
+//         });
+//         $("#AccountIdIs").html("AccountID : " + id);
+//     });
+// }
 
 function addCustomer() {
     var data = {

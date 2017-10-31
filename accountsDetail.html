@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -194,7 +195,7 @@
             </section>
             <!-- Main content -->
             <section class="content">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="viewAccountTable">
                     <thead>
                         <tr>
                             <th>Transaction No.</th>
@@ -205,9 +206,9 @@
                             <th>Added By</th>
                         </tr>
                     </thead>
-                    <tbody id="viewAccountTable">
+                    <!-- <tbody >
 
-                    </tbody>
+                    </tbody> -->
                 </table>
             </section>
             <!-- jQuery 3 -->
@@ -215,6 +216,7 @@
             <!-- jQuery UI 1.11.4 -->
             <script src="bower_components/jquery-ui/jquery-ui.min.js "></script>
             <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
             <script>
                 $.widget.bridge('uibutton', $.ui.button);
             </script>
@@ -223,7 +225,33 @@
             <script type="text/javascript" src="pages/js/js.js"></script>
             <script type="text/javascript" src="pages/js/toastr.min.js"></script>
             <script>
-                getAccountData(localStorage.getItem("account"));
+                getAccountDataD(localStorage.getItem("account"));
+
+                function getAccountDataD(id) {
+                    $("#AccountIdIs").html("AccountID : " + id);
+                    var table = $('#viewAccountTable').DataTable({
+                        "ajax": {
+                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][PaymentAccount]=" + id,
+                            "dataSrc": ""
+                        },
+                        "order": [
+                            [3, "desc"]
+                        ],
+                        "columns": [{
+                            "data": "RF"
+                        }, {
+                            "data": "Reason"
+                        }, {
+                            "data": "Type"
+                        }, {
+                            "data": "Date"
+                        }, {
+                            "data": "Amount"
+                        }, {
+                            "data": "AddedBy"
+                        }],
+                    });
+                }
             </script>
             <!-- Morris.js charts -->
 

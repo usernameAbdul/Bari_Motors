@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="bower_components/morris.js/morris.css">
     <!-- jvectormap -->
     <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Date Picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- Daterange picker -->
@@ -197,7 +198,7 @@
                 <h3 id="viewCustPayable"><b>Payable</b> : Wait..</h3>
                 <h3 id="viewCustBalance"><b>Balance</b> : Wait..</h3>
 
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="viewCustomerTable">
                     <thead>
                         <tr>
                             <th>Transaction No.</th>
@@ -208,9 +209,9 @@
                             <th>Added By</th>
                         </tr>
                     </thead>
-                    <tbody id="viewCustomerTable">
+                    <!-- <tbody>
 
-                    </tbody>
+                    </tbody> -->
                 </table>
             </section>
             <!-- jQuery 3 -->
@@ -225,9 +226,36 @@
             <script src="bower_components/bootstrap/dist/js/bootstrap.min.js "></script>
             <script type="text/javascript" src="pages/js/js.js"></script>
             <script type="text/javascript" src="pages/js/toastr.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
             <script>
-                getCustomerView(localStorage.getItem("custId"));
+                getCustomerViewD(localStorage.getItem("custId"));
                 getCustomerBalanceAndPayable(localStorage.getItem("custId"));
+
+                function getCustomerViewD(id) {
+                    $("#AccountIdIs").html("AccountID : " + id);
+                    var table = $('#viewCustomerTable ').DataTable({
+                        "ajax": {
+                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][CustomerID]=" + id,
+                            "dataSrc": ""
+                        },
+                        "order": [
+                            [3, "desc"]
+                        ],
+                        "columns": [{
+                            "data": "RF"
+                        }, {
+                            "data": "Reason"
+                        }, {
+                            "data": "Type"
+                        }, {
+                            "data": "Date"
+                        }, {
+                            "data": "Amount"
+                        }, {
+                            "data": "AddedBy"
+                        }],
+                    });
+                }
             </script>
             <!-- Morris.js charts -->
 
@@ -251,6 +279,8 @@
             <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js "></script>
             <!-- FastClick -->
             <script src="bower_components/fastclick/lib/fastclick.js "></script>
+
+
             <!-- AdminLTE App -->
             <script src="dist/js/adminlte.min.js "></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
