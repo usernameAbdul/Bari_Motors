@@ -2786,7 +2786,17 @@ $('#carOld').on('show.bs.modal', function() {
     getolDModelListCar();
 });
 
+function getReceivableCount() {
+    $.get(apiPath + "DayBooks/GetAllReceivables", function(success) {
+        $("#receivableCount").html(success);
+    })
+}
 
+function getPayableTotal() {
+    $.get(apiPath + "DayBooks/GetAllPayables", function(success) {
+        $("#payableCount").html(success);
+    })
+}
 
 function bariProfit() {
 
