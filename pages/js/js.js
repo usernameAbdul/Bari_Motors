@@ -1305,6 +1305,11 @@ function getInvestor() {
     });
 }
 
+function viewSupplier(ele) {
+    localStorage.setItem("supplierID", ele);
+    window.location = "supplierView.html";
+}
+
 function viewInvestor(ele) {
     localStorage.setItem("investorID", ele);
     window.location = "viewMore.html";
@@ -1365,7 +1370,7 @@ function generateAccountDiv() {
                 <a href="#" class="small-box-footer" onclick="getAccountDetailId('${ele.AccountID}')">More info <i class="fa fa-arrow-circle-right "></i></a>
             </div>
         </div>`
-                $('#allAccounts').append(html);
+                $('#allBanks').append(html);
 
 
 

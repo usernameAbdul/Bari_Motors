@@ -394,13 +394,13 @@
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
-                    "defaultContent": '<a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a> <button><u>veiw more</button></u>'
+                    "defaultContent": '<a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a> <button class="btn-xs">veiw more</button>'
                 }]
             });
 
             $('#tableBodySupplier tbody').on('click', "button", function() {
                 var data = table.row($(this).parents('tr')).data();
-                alert(data.SupplierID);
+                viewSupplier(data.SupplierID);
                 //setCustId(data.CustomerID);
             });
         }
