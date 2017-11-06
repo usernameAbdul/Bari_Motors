@@ -2524,7 +2524,7 @@ function addDebit() {
             })
         }
     }
-
+    //helo
     if ($('#dsel1').val() == "Car") {
         var investors = [];
         var percentage;
