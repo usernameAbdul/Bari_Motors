@@ -269,6 +269,18 @@ table {
     color: red!important;
 }
 
+#customerPaymentDebit {
+    display: none;
+}
+
+.cpChequeDebit {
+    display: none;
+}
+
+.cpOnlineDebit {
+    display: none;
+}
+
 
 /*.................................................*/
 

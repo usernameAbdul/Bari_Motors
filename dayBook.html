@@ -585,9 +585,139 @@ folder instead of downloading all of them to reduce the load. -->
 <option>Expense</option>
 <option>Investment</option>
 <option>Supplier</option>
+<option>Customer Payments</option>
 </select>
                                         </div>
                                         <hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <div id="customerPaymentDebit">
+
+                                            <div class="form-group">
+                                                <label for="cpDebit">Transaction Type:</label>
+                                                <select class="form-control" id="cpDebit">
+<label>Transaction Mode:</label>
+<option >Cash In Hand</option>
+<option>Cheque</option>
+<option>Online Payment</option>
+</select>
+                                            </div>
+
+
+
+
+                                            <div class="cpCihDebit">
+                                                <div class="form-group">
+                                                    <label>Customer's list:</label>
+                                                    <select class="form-control" id="cpListDebit">
+<option>Select Customer</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="usr">Amount:</label>
+                                                    <input type="text" class="form-control" id="cpAmountDebit">
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="cpChequeDebit">
+                                                <div class="form-group">
+                                                    <label>Customer list:</label>
+                                                    <select class="form-control" id="cpListDebitCheque">
+<option>Select Customer</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Banks list:</label>
+                                                    <select class="form-control" id="cpBListDebitCheque">
+<option>Select Bank</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Accounts list:</label>
+                                                    <select class="form-control" id="cpAListDebitCheque">
+<option>Select Account</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="usr">Cheque No:</label>
+                                                    <input type="text" class="form-control" id="cpCnoDebit">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="usr">Amount:</label>
+                                                    <input type="text" class="form-control" id="cpAmountDebitCheque">
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="cpOnlineDebit">
+                                                <div class="form-group">
+                                                    <label>Customer list:</label>
+                                                    <select class="form-control" id="cpListDebitOnline">
+<option>Select Customer</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Banks list:</label>
+                                                    <select class="form-control" id="cpBListDebitOnline">
+<option>Select Bank</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Accounts list:</label>
+                                                    <select class="form-control" id="cpAListDebitOnline">
+<option>Select Account</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="usr">Amount:</label>
+                                                    <input type="text" class="form-control" id="cpAmountDebitOnline">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         <div id="supplierDivDebit">
                                             <div class="form-group">
                                                 <label for="supplier2">Transaction Type:</label>
@@ -744,53 +874,6 @@ folder instead of downloading all of them to reduce the load. -->
 
                                         </div>
                                         <!-- Investment div Debit ends here -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                         <div id="expense">
                                             <div class="form-group">

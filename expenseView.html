@@ -25,9 +25,10 @@
     <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
     <!-- Date Picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- dataTable -->
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -189,13 +190,13 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Cash In Hand
+                    Expenses
                     <small>Control panel</small>
                 </h1>
             </section>
             <!-- Main content -->
             <section class="content">
-                <table class="table table-bordered" id="cihTable">
+                <table class="table table-bordered" id="viewExpenseTable">
                     <thead>
                         <tr>
                             <th>Transaction No.</th>
@@ -206,6 +207,9 @@
                             <th>Added By</th>
                         </tr>
                     </thead>
+                    <!-- <tbody>
+
+                    </tbody> -->
                 </table>
             </section>
             <!-- jQuery 3 -->
@@ -220,36 +224,7 @@
             <script src="bower_components/bootstrap/dist/js/bootstrap.min.js "></script>
             <script type="text/javascript" src="pages/js/js.js"></script>
             <script type="text/javascript" src="pages/js/toastr.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-            <script>
-                getCihDataD();
 
-                function getCihDataD() {
-
-                    var table = $('#cihTable').DataTable({
-                        "ajax": {
-                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Via]=Cash",
-                            "dataSrc": ""
-                        },
-                        "order": [
-                            [3, "desc"]
-                        ],
-                        "columns": [{
-                            "data": "RF"
-                        }, {
-                            "data": "Reason"
-                        }, {
-                            "data": "Type"
-                        }, {
-                            "data": "Date"
-                        }, {
-                            "data": "Amount"
-                        }, {
-                            "data": "AddedBy"
-                        }],
-                    });
-                }
-            </script>
             <!-- Morris.js charts -->
 
             <script src="bower_components/raphael/raphael.min.js "></script>
@@ -272,12 +247,43 @@
             <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js "></script>
             <!-- FastClick -->
             <script src="bower_components/fastclick/lib/fastclick.js "></script>
+            <!-- dataTable -->
+            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
             <!-- AdminLTE App -->
             <script src="dist/js/adminlte.min.js "></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
             <script src="dist/js/pages/dashboard.js "></script>
             <!-- AdminLTE for demo purposes -->
             <script src="dist/js/demo.js "></script>
+            <script>
+                getExpenseViewD()
+
+                function getExpenseViewD() {
+
+                    var table = $('#viewExpenseTable').DataTable({
+                        "ajax": {
+                            "url": "http://52.187.168.31:3000/api/Expenses/GetAllExpensesTrx",
+                            "dataSrc": ""
+                        },
+                        "order": [
+                            [3, "desc"]
+                        ],
+                        "columns": [{
+                            "data": "RF"
+                        }, {
+                            "data": "Reason"
+                        }, {
+                            "data": "Type"
+                        }, {
+                            "data": "Date"
+                        }, {
+                            "data": "Amount"
+                        }, {
+                            "data": "AddedBy"
+                        }],
+                    });
+                }
+            </script>
 </body>
 
 </html>

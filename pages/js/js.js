@@ -40,11 +40,11 @@ function logOut() {
 }*/
 /*------------------------------CREDIT MODAL--------------------------------------*/
 $('#credit').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#debit').on('hidden.bs.modal', function() {
-    location.reload();
-})
+        location.reload();
+    })
+    // $('#debit').on('hidden.bs.modal', function() {
+    //     location.reload();
+    // })
 $('#InvestorModal').on('hidden.bs.modal', function() {
     location.reload();
 })
@@ -308,7 +308,6 @@ function getBankListCredit() {
         }, this)
 
         $('#bankListCredit' + countCiCar + '').append(html);
-        console.log(countCiCar);
 
     });
 
@@ -562,6 +561,18 @@ $('#dsel1').on('change', function() {
         $('#expense').css('display', 'none');
         $('#investorDivDebit').css('display', 'none');
         $('#supplierDivDebit').css('display', 'none');
+        $('#customerPaymentDebit').css('display', 'none');
+
+    } else if (name == "Customer Payments") {
+
+
+        $('#dcarDiv').css('display', 'none');
+        $('#dbank').css('display', 'none');
+        $('#expense').css('display', 'none');
+        $('#investorDivDebit').css('display', 'none');
+        $('#supplierDivDebit').css('display', 'none');
+        $('#customerPaymentDebit').css('display', 'block');
+
     } else if (name == "Banks") {
 
 
@@ -570,6 +581,7 @@ $('#dsel1').on('change', function() {
         $('#expense').css('display', 'none');
         $('#investorDivDebit').css('display', 'none');
         $('#supplierDivDebit').css('display', 'none');
+        $('#customerPaymentDebit').css('display', 'none');
 
     } else if (name == "Expense") {
 
@@ -579,6 +591,7 @@ $('#dsel1').on('change', function() {
         $('#expense').css('display', 'block');
         $('#investorDivDebit').css('display', 'none');
         $('#supplierDivDebit').css('display', 'none');
+        $('#customerPaymentDebit').css('display', 'none');
 
     } else if (name == "Investment") {
 
@@ -587,6 +600,7 @@ $('#dsel1').on('change', function() {
         $('#dbank').css('display', 'none');
         $('#expense').css('display', 'none');
         $('#supplierDivDebit').css('display', 'none');
+        $('#customerPaymentDebit').css('display', 'none');
 
     } else if (name == "Supplier") {
 
@@ -595,6 +609,7 @@ $('#dsel1').on('change', function() {
         $('#dbank').css('display', 'none');
         $('#expense').css('display', 'none');
         $('#supplierDivDebit').css('display', 'block');
+        $('#customerPaymentDebit').css('display', 'none');
 
     }
 });
@@ -656,6 +671,25 @@ $('#investment2').on('change', function() {
         $('.iCihDebit').css('display', 'none');
         $('.iChequeDebit').css('display', 'none');
         $('.iOnlineDebit').css('display', 'block');
+    }
+});
+
+$('#cpDebit').on('change', function() {
+    var name = $('#cpDebit').val();
+    if (name == "Cheque") {
+        $('.cpCihDebit').css('display', 'none');
+        $('.cpChequeDebit').css('display', 'block');
+        $('.cpOnlineDebit').css('display', 'none');
+
+    } else if (name == "Cash In Hand") {
+        $('.cpCihDebit').css('display', 'block');
+        $('.cpChequeDebit').css('display', 'none');
+        $('.cpOnlineDebit').css('display', 'none');
+    } else if (name == "Online Payment") {
+        console.log("inside banks");
+        $('.cpCihDebit').css('display', 'none');
+        $('.cpChequeDebit').css('display', 'none');
+        $('.cpOnlineDebit').css('display', 'block');
     }
 });
 
@@ -1060,6 +1094,12 @@ $('.checkCar').on('click', function() {
 });
 
 /*----------------------------------API CALLS*---------------------------------------*/
+function expenseCount() {
+    $.get(apiPath + "Expenses/GetExpensesCount", function(success) {
+        $("#displayExpenses").html("Rs." + success);
+    })
+}
+
 function addOldCar() {
 
     var data = {
@@ -1483,18 +1523,18 @@ function getCustCount() {
     })
 }
 
-function getprofitAndLostTable() {
+// function getprofitAndLostTable() {
 
-    $.get(apiPath + "Transactions?filter[where][PaymentAccount]=Profit Loss", function(success) {
-        var html;
+//     $.get(apiPath + "Transactions?filter[where][PaymentAccount]=Profit Loss", function(success) {
+//         var html;
 
-        success.forEach(function(ele) {
-            html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
-            $('#profitLossTable').append(html);
-        });
+//         success.forEach(function(ele) {
+//             html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
+//             $('#profitLossTable').append(html);
+//         });
 
-    })
-}
+//     })
+// }
 var balance;
 
 function getprofitAndLostCount() {
@@ -2407,7 +2447,7 @@ function getBankListForExpOnline() {
 var payExpense = [];
 
 function addDebit() {
-    console.log($('#dsel1').val())
+
     var data;
     if ($('#dsel1').val() == "Expense") {
         if ($('#exp').val() == "Car Expense") {
@@ -2466,6 +2506,25 @@ function addDebit() {
          "DO": $('#debitDo').val()
      }
      console.log(data);*/
+    if ($("#dsel1").val() == "Customer Payments") {
+        //Customers/CashToCustomer?CustomerID=newID&Amount=100&AddedBy=manu
+        if ($("#cpDebit").val() == "Cash In Hand") {
+            $.get(apiPath + "Customers/CashToCustomer?CustomerID=" + $("#cpListDebit").val() + "&Amount=" + $("#cpAmountDebit").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                //console.log(success);
+                location.reload();
+            })
+        } else if ($("#cpDebit").val() == "Cheque") {
+            $.get(apiPath + "Customers/ChequeToCustomer?CustomerID=" + $("#cpListDebitCheque").val() + "&Amount=" + $("#cpAmountDebitCheque").val() + "&ChequeNo=" + $("#cpCnoDebit").val() + "&AccountID=" + $("#cpAListDebitCheque").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                location.reload();
+            })
+
+        } else if ($("#cpDebit").val() == "Online Payment") {
+            $.get(apiPath + "Customers/TransferToCustomer?CustomerID=" + $("#cpListDebitOnline").val() + "&Amount=" + $("#cpAmountDebitOnline").val() + "&AccountID=" + $("#cpAListDebitOnline").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                location.reload();
+            })
+        }
+    }
+
     if ($('#dsel1').val() == "Car") {
         var investors = [];
         var percentage;
@@ -2773,6 +2832,72 @@ function investorStuff() {
 
 
 }
+
+function getCustListDebitTransaction() {
+    $.get(apiPath + "Customers", function(success) {
+        var html = '';
+
+        success.forEach(function(ele) {
+            html += `<option>` + ele.CustomerID + `</option>`
+        }, this)
+
+        $('#cpListDebit').append(html);
+        $('#cpListDebitCheque').append(html);
+        $('#cpListDebitOnline').append(html);
+    })
+}
+
+function getBankListCustDebit() {
+    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
+
+        var html = '';
+
+        success.forEach(function(ele) {
+            if (ele.Name != "Profit Loss") {
+                html += `<option>` + ele.Name + `</option>`
+            }
+        }, this)
+
+        $('#cpBListDebitCheque').append(html);
+        $('#cpBListDebitOnline').append(html);
+
+    });
+
+}
+$('#cpBListDebitCheque').on('change', function() {
+    $('#cpAListDebitCheque').html('');
+
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#cpBListDebitCheque').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Account</option>`
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#cpAListDebitCheque').append(html);
+    });
+
+
+});
+$('#cpBListDebitOnline').on('change', function() {
+    $('#cpAListDebitOnline').html('');
+
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#cpBListDebitOnline').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Account</option>`
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#cpAListDebitOnline').append(html);
+    });
+
+
+});
 $('#cars').on('show.bs.modal', function() {
 
     getMakeListCar();
@@ -2788,13 +2913,13 @@ $('#carOld').on('show.bs.modal', function() {
 
 function getReceivableCount() {
     $.get(apiPath + "DayBooks/GetAllReceivables", function(success) {
-        $("#receivableCount").html(success);
+        $("#receivableCount").html("Rs. " + success);
     })
 }
 
 function getPayableTotal() {
     $.get(apiPath + "DayBooks/GetAllPayables", function(success) {
-        $("#payableCount").html(success);
+        $("#payableCount").html("Rs. " + success);
     })
 }
 
@@ -2836,7 +2961,8 @@ $('#debit').on('show.bs.modal', function() {
     getBankListForExpCheque();
     getInvestorIdForExpense();
     getBankListForExpOnline();
-
+    getCustListDebitTransaction();
+    getBankListCustDebit();
     $('#ifCount').hide();
 
 });

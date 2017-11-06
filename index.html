@@ -206,9 +206,21 @@
                             <a href="profitAndLoss.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col -->
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3 id="investCount">Wait..</h3>
+                                <h4>Registered Investors</h4>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="investors.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <!-- <div class="col-lg-3 col-xs-6">
                         <div class="small-box bg-green">
                             <div class="inner">
                                 <h3>Rs. 1,50,000</h3>
@@ -219,7 +231,7 @@
                             </div>
                             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- ./col -->
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
@@ -239,13 +251,13 @@
                         <!-- small box -->
                         <div class="small-box bg-blue">
                             <div class="inner ">
-                                <h3>Rs. 1,500</h3>
-                                <h4>Total Expenses</h4>
+                                <h3 id="displayExpenses">Wait..</h3>
+                                <h4>Expenses</h4>
                             </div>
                             <div class="icon ">
                                 <i class="ion ion-pie-graph "></i>
                             </div>
-                            <a href="# " class="small-box-footer ">More info <i class="fa fa-arrow-circle-right "></i></a>
+                            <a href="expenseView.html" class="small-box-footer ">More info <i class="fa fa-arrow-circle-right "></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -279,19 +291,7 @@
                             <a href="customer.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-green">
-                            <div class="inner">
-                                <h3 id="investCount">Wait..</h3>
-                                <h4>Registered Investors</h4>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="investors.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
+
                     <!-- payable div starts -->
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
@@ -397,12 +397,14 @@
     </script>
     <!-- Bootstrap 3.3.7 -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js "></script>
+    <script type="text/javascript" src="pages/js/toastr.min.js"></script>
     <script type="text/javascript" src="pages/js/js.js"></script>
     <script>
         displayCash();
 
         getCustCount();
         getInvestorCount();
+        expenseCount();
         // getInvestment();
         getReceivableCount();
         getPayableTotal();
