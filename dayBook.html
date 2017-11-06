@@ -720,82 +720,136 @@ folder instead of downloading all of them to reduce the load. -->
 
                                         <div id="supplierDivDebit">
                                             <div class="form-group">
-                                                <label for="supplier2">Transaction Type:</label>
-                                                <select class="form-control" id="supplier2">
-<label>Transaction Mode:</label>
+                                                <label for="sup">Select an Option:</label>
+                                                <select class="form-control" id="sup">
+                <option >Pay Supplier</option>
+                <option>Sale Car</option>
+                </select>
+                                            </div>
+                                            <div id="saleCar">
+                                                <div class="form-group">
+                                                    <label for="sup">Supplier List (Owner):</label>
+                                                    <select class="form-control" id="supSl1">
+<option >Select Supplier</option>
+</select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sup">Car List :</label>
+                                                    <select class="form-control" id="supCarList">
+<option >Select Car</option>
+</select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sup">Purchase Price :</label>
+                                                    <input type="text" class="form-control" id="supPp" disabled>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sup">D.O :</label>
+                                                    <input type="text" class="form-control" id="supDo">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sup">Supplier List (Customer):</label>
+                                                    <select class="form-control" id="supSl2">
+<option >Select Supplier</option>
+</select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sup">Sale Price :</label>
+                                                    <input type="text" class="form-control" id="supSp">
+                                                </div>
+
+
+                                            </div>
+                                            <div id=paySupplier>
+                                                <div class="form-group">
+                                                    <label for="supplier2">Transaction Type:</label>
+                                                    <select class="form-control" id="supplier2">
+<!-- <label>Transaction Mode:</label> -->
 <option >Cash In Hand</option>
 <option>Cheque</option>
 <option>Online Payment</option>
 </select>
-                                            </div>
+                                                </div>
 
-                                            <div class="sCihDebit">
-                                                <div class="form-group">
-                                                    <label> Suppliers's list:</label>
-                                                    <select class="form-control" id="sListDebit">
+                                                <div class="sCihDebit">
+                                                    <div class="form-group">
+                                                        <label> Suppliers's list:</label>
+                                                        <select class="form-control" id="sListDebit">
 <option>Select Supplier</option>
 </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="sAmountDebit">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="usr">Amount:</label>
-                                                    <input type="text" class="form-control" id="sAmountDebit">
-                                                </div>
-                                            </div>
-                                            <div class="sChequeDebit">
-                                                <div class="form-group">
-                                                    <label>Suppliers list:</label>
-                                                    <select class="form-control" id="sListDebitCheque">
+                                                <div class="sChequeDebit">
+                                                    <div class="form-group">
+                                                        <label>Suppliers list:</label>
+                                                        <select class="form-control" id="sListDebitCheque">
 <option>Select Supplier</option>
 </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Banks list:</label>
-                                                    <select class="form-control" id="sBListDebitCheque">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Banks list:</label>
+                                                        <select class="form-control" id="sBListDebitCheque">
 <option>Select Bank</option>
 </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Accounts list:</label>
-                                                    <select class="form-control" id="sAListDebitCheque">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Accounts list:</label>
+                                                        <select class="form-control" id="sAListDebitCheque">
 <option>Select Account</option>
 </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Cheque No:</label>
+                                                        <input type="text" class="form-control" id="sCnoDebit">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="sAmountDebitCheque">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="usr">Cheque No:</label>
-                                                    <input type="text" class="form-control" id="sCnoDebit">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="usr">Amount:</label>
-                                                    <input type="text" class="form-control" id="sAmountDebitCheque">
-                                                </div>
-                                            </div>
-                                            <div class="sOnlineDebit">
-                                                <div class="form-group">
-                                                    <label>Suppliers list:</label>
-                                                    <select class="form-control" id="sListDebitOnline">
+                                                <div class="sOnlineDebit">
+                                                    <div class="form-group">
+                                                        <label>Suppliers list:</label>
+                                                        <select class="form-control" id="sListDebitOnline">
 <option>Select Supplier</option>
 </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Banks list:</label>
-                                                    <select class="form-control" id="sBListDebitOnline">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Banks list:</label>
+                                                        <select class="form-control" id="sBListDebitOnline">
 <option>Select Bank</option>
 </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Accounts list:</label>
-                                                    <select class="form-control" id="sAListDebitOnline">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Accounts list:</label>
+                                                        <select class="form-control" id="sAListDebitOnline">
 <option>Select Account</option>
 </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="usr">Amount:</label>
-                                                    <input type="text" class="form-control" id="sAmountDebitOnline">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="sAmountDebitOnline">
+                                                    </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <!-- supplier div Debit ends here -->
+
+
+
+
+
+
+
                                         <div id="investorDivDebit">
                                             <div class="form-group">
                                                 <label for="investment2">Transaction Type:</label>
