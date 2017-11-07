@@ -1329,10 +1329,10 @@ folder instead of downloading all of them to reduce the load. -->
                         <table id="creditTable" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Reason</th>
-                                    <th>D.O</th>
-                                    <th>Amount</th>
                                     <th>Date</th>
+                                    <th>Reason</th>
+                                    <th>D.O/Ref</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <!-- <tbody id="creditTable">
@@ -1344,10 +1344,10 @@ folder instead of downloading all of them to reduce the load. -->
                         <table id="debitTable" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Reason</th>
-                                    <th>D.O</th>
-                                    <th>Amount</th>
                                     <th>Date</th>
+                                    <th>Reason</th>
+                                    <th>D.O/Ref</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <!-- <tbody id="debitTable">
@@ -1423,16 +1423,16 @@ immediately after the control sidebar -->
                             "dataSrc": ""
                         },
                         "order": [
-                            [3, "desc"]
+                            [0, "desc"]
                         ],
                         "columns": [{
+                            "data": "Date"
+                        }, {
                             "data": "Reason"
                         }, {
                             "data": "DO"
                         }, {
                             "data": "Amount"
-                        }, {
-                            "data": "Date"
                         }],
                     });
                 }
@@ -1445,16 +1445,16 @@ immediately after the control sidebar -->
                             "dataSrc": ""
                         },
                         "order": [
-                            [3, "desc"]
+                            [0, "desc"]
                         ],
                         "columns": [{
+                            "data": "Date"
+                        }, {
                             "data": "Reason"
                         }, {
                             "data": "DO"
                         }, {
                             "data": "Amount"
-                        }, {
-                            "data": "Date"
                         }],
                     });
                 }
