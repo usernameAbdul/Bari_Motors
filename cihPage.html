@@ -228,7 +228,7 @@
 
                     var table = $('#cihTable').DataTable({
                         "ajax": {
-                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Via]=Cash",
+                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][PaymentAccount]=1",
                             "dataSrc": ""
                         },
                         "order": [

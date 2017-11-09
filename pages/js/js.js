@@ -39,30 +39,30 @@ function logOut() {
     user ="";
 }*/
 /*------------------------------CREDIT MODAL--------------------------------------*/
-// $('#credit').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#debit').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#InvestorModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#SupplierModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#cars').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#carOld').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#customerModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#addAccount').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
+$('#credit').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#debit').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#InvestorModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#SupplierModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#cars').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#carOld').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#customerModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#addAccount').on('hidden.bs.modal', function() {
+    location.reload();
+})
 
 
 
@@ -1332,6 +1332,7 @@ function getSupplierlist() {
         }, this)
 
         $('#debitSupplier').append(html);
+        $('#creditSup').append(html);
     });
 }
 
@@ -1499,6 +1500,28 @@ function getCustomer() {
         $('#tableBodyCustomer').append(html);
     });
 }
+$('#whosCarSelect').on('change', function() {
+    var name = $('#whosCarSelect').val();
+    if (name == "Investor's Car") {
+        $('#inCarSale').css('display', 'block');
+        $('#custCarSale').css('display', 'none');
+        $('#supCarSale').css('display', 'none');
+    } else if (name == "Supplier's Car") {
+
+
+        $('#custCarSale').css('display', 'none');
+        $('#supCarSale').css('display', 'block');
+        $('#inCarSale').css('display', 'none');
+
+    } else if (name == "Customer's Car") {
+
+
+        $('#inCarSale').css('display', 'none');
+        $('#supCarSale').css('display', 'none');
+        $('#custCarSale').css('display', 'block');
+
+    }
+});
 
 function setCustId(id) {
     localStorage.setItem("custId", id)
@@ -1710,11 +1733,11 @@ function addCredit() {
             "CustomerID": $("#creditCustomer").val(),
             "ProfitMargin": $('#creditpr').val()
         }
-        console.log(data);
-        // $.post(apiPath + "DayBooks", data, function(success, status) {
-        //     location.reload();
 
-        // });
+        $.post(apiPath + "DayBooks", data, function(success, status) {
+            location.reload();
+
+        });
 
     }
 
@@ -1793,6 +1816,40 @@ function addCredit() {
 }
 
 
+$('#creditCust').on('change', function() {
+    $('#creditCarID').html('');
+    $.get(apiPath + "Cars?filter[where][CustomerID]=" + $('#creditCust').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Car</option>`
+
+        success.forEach(function(ele) {
+            if (ele.Status != "Sold") {
+                html += `<option>` + ele.CarID + `</option>`
+            }
+        }, this)
+        $('#creditCarID').append(html);
+    });
+
+
+});
+$('#creditSup').on('change', function() {
+    $('#creditCarID').html('');
+    $.get(apiPath + "Cars?filter[where][SupplierID]=" + $('#creditSup').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Car</option>`
+
+        success.forEach(function(ele) {
+            if (ele.Status != "Sold") {
+                html += `<option>` + ele.CarID + `</option>`
+            }
+        }, this)
+        $('#creditCarID').append(html);
+    });
+
+
+});
 $('#creditInvestor').on('change', function() {
     $('#creditCarID').html('');
     $.get(apiPath + "Cars/GetCarByInvestor?InvestorID=" + $('#creditInvestor').val() + "", function(success) {
@@ -2013,7 +2070,7 @@ $('#iBListDebitCheque').on('change', function() {
 
 });
 $('#iBListDebitOnline').on('change', function() {
-    $('#iAListDebitOnline').html('');
+    $('#payInvestorOnline').html('');
 
     $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#iBListDebitOnline').val() + "", function(success) {
 
@@ -2024,7 +2081,7 @@ $('#iBListDebitOnline').on('change', function() {
 
             html += `<option>` + ele.AccountID + `</option>`
         }, this)
-        $('#iAListDebitOnline').append(html);
+        $('#payInvestorOnline').append(html);
     });
 
 
@@ -2143,7 +2200,7 @@ function iListDebitOnline() {
             html += `<option>` + ele.InvestorID + `</option>`
         }, this)
 
-        $('#iListDebitOnline').append(html);
+        $('#investorListing').append(html);
     });
 
 }
@@ -2406,6 +2463,7 @@ function getCustomersListCredit() {
         }, this)
 
         $('#creditCustomer').append(html);
+        $('#creditCust').append(html);
     });
 
 }
@@ -2638,12 +2696,13 @@ function addDebit() {
                 //console.log(success);
             });
         }
-        /*if($('#investment2').val()=="Online Payment"){
-
-            $.get(apiPath + "Investors/TransferInInvestor?AccountID="+$('#iAListCreditOnline').val()+"&Amount="+$('#iAmountCreditOnline').val()+"&InvestorID="+$('#iListCreditOnline').val()+"", function(success, status) {
+        if ($('#investment2').val() == "Online Payment") {
+            // console.log($('#payInvestorOnline').val() + " " + $('#onlineCash').val() + " " + $('#investorListing').val())
+            $.get(apiPath + "Investors/TransferToInvestor?AccountID=" + $('#payInvestorOnline').val() + "&Amount=" + $('#onlineCash').val() + "&InvestorID=" + $('#investorListing').val() + "", function(success, status) {
                 location.reload();
-                 });
-        }*/
+            });
+
+        }
     }
 
     if ($('#dsel1').val() == "Supplier") {
@@ -2689,6 +2748,7 @@ function getInvestersListCredit() {
     });
 
 }
+
 
 function getMakeListCar() {
     $.get(apiPath + "CarMakes", function(success, status) {
