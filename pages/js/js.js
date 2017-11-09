@@ -1312,7 +1312,7 @@ function addSupplier() {
         "ShowRoomName": $("#supName").val(),
         "ContactNo": $("#supCno").val(),
         "Payable": $("#supPayable").val(),
-        "Receivable": $("#supReceivable").val(),
+        "Balance": $("#supReceivable").val(),
         "AddedBy": localStorage.getItem("myVar")
 
 
@@ -1478,7 +1478,7 @@ function addCustomer() {
         "ContactNo": $("#custCno").val(),
         "Address": $("#custAddress").val(),
         "Payable": $("#custPayable").val(),
-        "Receivable": $("#custReceivable").val(),
+        "Balance": $("#custReceivable").val(),
         "AddedBy": localStorage.getItem("myVar"),
         "CNIC": $("#custCnic").val()
     }
