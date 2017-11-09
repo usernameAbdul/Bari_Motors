@@ -39,30 +39,30 @@ function logOut() {
     user ="";
 }*/
 /*------------------------------CREDIT MODAL--------------------------------------*/
-$('#credit').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#debit').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#InvestorModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#SupplierModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#cars').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#carOld').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#customerModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#addAccount').on('hidden.bs.modal', function() {
-    location.reload();
-})
+// $('#credit').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#debit').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#InvestorModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#SupplierModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#cars').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#carOld').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#customerModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#addAccount').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
 
 
 
@@ -145,7 +145,7 @@ $('#sel2').on('change', function() {
         $('.cashChecked').css('display', 'block');
         $('.chequeChecked').css('display', 'none');
         $('.onlineChecked').css('display', 'none');
-    } else if (name == "Online Payment") {
+    } else if (name == "ATM") {
         $('.chequeChecked').css('display', 'none');
         $('.cashChecked').css('display', 'none');
         $('.onlineChecked').css('display', 'block');
@@ -690,6 +690,28 @@ $('#cpDebit').on('change', function() {
         $('.cpCihDebit').css('display', 'none');
         $('.cpChequeDebit').css('display', 'none');
         $('.cpOnlineDebit').css('display', 'block');
+    }
+});
+
+$('#cpCredit').on('change', function() {
+    var name = $('#cpCredit').val();
+    console.log(name);
+    if (name == "Cheque") {
+        console.log(name);
+        $('#cpCihCredit').css('display', 'none');
+        $('#cpChequeCredit').css('display', 'block');
+        $('#cpOnlineCredit').css('display', 'none');
+
+    } else if (name == "Cash In Hand") {
+        console.log(name);
+        $('#cpCihCredit').css('display', 'block');
+        $('#cpChequeCredit').css('display', 'none');
+        $('#cpOnlineCredit').css('display', 'none');
+    } else if (name == "Online Payment") {
+        console.log(name);
+        $('#cpCihCredit').css('display', 'none');
+        $('#cpChequeCredit').css('display', 'none');
+        $('#cpOnlineCredit').css('display', 'block');
     }
 });
 
@@ -1289,14 +1311,16 @@ function addSupplier() {
         "SupplierID": $("#supId").val(),
         "ShowRoomName": $("#supName").val(),
         "ContactNo": $("#supCno").val(),
+        "Payable": $("#supPayable").val(),
+        "Receivable": $("#supReceivable").val(),
         "AddedBy": localStorage.getItem("myVar")
 
 
     }
-
-    $.post(apiPath + "Suppliers", data, function(success, status) {
-        location.reload();
-    });
+    console.log(data)
+        // $.post(apiPath + "Suppliers", data, function(success, status) {
+        //     location.reload();
+        // });
 
 }
 
@@ -1331,9 +1355,12 @@ function addInvestor() {
         "Name": $("#inName").val(),
         "ContactNo": $("#inCno").val(),
         "Investment": $("#inInvestment").val(),
+        "Payable": $("#inPayable").val(),
+        "Receivable": $("#inReceivable").val(),
         "AddedBy": localStorage.getItem("myVar"),
         "Type": "Investor"
     }
+
     $.post(apiPath + "Investors", data, function(success, status) {
         location.reload();
     });
@@ -1437,7 +1464,7 @@ function generateAccountDiv() {
 
 //             html = `<tr><td>${ele.RF}</td> <td>${ele.Reason}</td> <td>${ele.Type}</td> <td>${ele.Date}</td> <td>${ele.Amount}</td><td>${ele.AddedBy}</td></tr>`
 //             $('#viewAccountTable').append(html);
-//         });
+//       });
 //         $("#AccountIdIs").html("AccountID : " + id);
 //     });
 // }
@@ -1449,9 +1476,12 @@ function addCustomer() {
         "FatherName": $("#custFName").val(),
         "ContactNo": $("#custCno").val(),
         "Address": $("#custAddress").val(),
+        "Payable": $("#custPayable").val(),
+        "Receivable": $("#custReceivable").val(),
         "AddedBy": localStorage.getItem("myVar"),
-        "CNIC": $("#custCnic").val(),
+        "CNIC": $("#custCnic").val()
     }
+
     $.post(apiPath + "Customers", data, function(success, status) {
         location.reload();
     });
@@ -1677,14 +1707,14 @@ function addCredit() {
             "Type": "SalePurchase",
             "AddedBy": localStorage.getItem("myVar"),
             "SalePrice": $("#sp").val(),
-            "CustomerID": $("creditCustomerList").val(),
+            "CustomerID": $("#creditCustomer").val(),
             "ProfitMargin": $('#creditpr').val()
         }
+        console.log(data);
+        // $.post(apiPath + "DayBooks", data, function(success, status) {
+        //     location.reload();
 
-        $.post(apiPath + "DayBooks", data, function(success, status) {
-            location.reload();
-
-        });
+        // });
 
     }
 
@@ -1695,18 +1725,23 @@ function addCredit() {
                 location.reload();
             });
         }
-        /* if($('#sel2').val()=="Cheque"){
-          $.get(apiPath + "Accounts/ChequeToBank?chequeNo="+$('#chequeNoBdiv').val()+"&Amount="+$('#chequeAmountBdiv').val()+"&AccountID1="+$('#accountId1').val()+"&AccountID2="+$('#accountId2').val()+"", function(success, status) {
-             location.reload();
-              });
-         }
-         if($('#sel2').val()=="Online Payment"){
-          $.get(apiPath + "Accounts/TransferTobank?Amount="+$('#onlineAmountBdiv').val()+"&AccountID1="+$('#onlineAccountId1').val()+"&AccountID2="+$('#onlineAccountId2').val()+"", function(success, status) {
-             location.reload();
-              });
-         }*/
+        //  if($('#sel2').val()=="Cheque"){
+        //   $.get(apiPath + "Accounts/ChequeToBank?chequeNo="+$('#chequeNoBdiv').val()+"&Amount="+$('#chequeAmountBdiv').val()+"&AccountID1="+$('#accountId1').val()+"&AccountID2="+$('#accountId2').val()+"", function(success, status) {
+        //      location.reload();
+        //       });
+        //  }
+        if ($('#sel2').val() == "ATM") {
+            $.get(apiPath + "Accounts/TransferToCash?AccountID=" + $('#onlineAccountId1').val() + "&Amount=" + $('#onlineAmountBdiv').val() + "", function(success, status) {
+                location.reload();
+
+            });
+        }
 
     }
+
+
+
+
     if ($('#sel1').val() == "Investment") {
         if ($('#investment').val() == "Cash In Hand") {
 
@@ -1733,9 +1768,27 @@ function addCredit() {
         });
     }
     if ($('#sel1').val() == "Customer") {
-        $.get(apiPath + "Customers/CarToCustomer?CustomerID=" + $('#creditCustomerList').val() + "&CarID=" + $('#custCarList').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
-            location.reload();
-        });
+        if ($("#cust").val() == "Assign Car") {
+            $.get(apiPath + "Customers/CarToCustomer?CustomerID=" + $('#creditCustomerList').val() + "&CarID=" + $('#custCarList').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
+                location.reload();
+            });
+        } else if ($("#cust").val() == "Pay Customer") {
+            if ($("#cpCredit").val() == "Cash In Hand") {
+                $.get(apiPath + "Customers/CustomerPayCash?CustomerID=" + $("#cpListCredit").val() + "&Amount=" + $("#cpAmountCredit").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                    //console.log(success);
+                    location.reload();
+                })
+            } else if ($("#cpCredit").val() == "Cheque") {
+                $.get(apiPath + "Customers/CustomerPayCheque?CustomerID=" + $("#cpListCreditCheque").val() + "&Amount=" + $("#cpAmountCreditCheque").val() + "&AccountID=" + $("#cpAListCreditCheque").val() + "&ChequeNo=" + $("#cpCnoCredit").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                    location.reload();
+                })
+
+            } else if ($("#cpCredit").val() == "Online Payment") {
+                $.get(apiPath + "Customers/CustomerPayOnline?CustomerID=" + $("#cpListCreditOnline").val() + "&Amount=" + $("#cpAmountCreditOnline").val() + "&AccountID=" + $("#cpAListCreditOnline").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                    location.reload();
+                })
+            }
+        }
     }
 }
 
@@ -2861,6 +2914,20 @@ function getCustListDebitTransaction() {
     })
 }
 
+function getCustListCreditTransaction() {
+    $.get(apiPath + "Customers", function(success) {
+        var html = '';
+
+        success.forEach(function(ele) {
+            html += `<option>` + ele.CustomerID + `</option>`
+        }, this)
+
+        $('#cpListCredit').append(html);
+        $('#cpListCreditCheque').append(html);
+        $('#cpListCreditOnline').append(html);
+    })
+}
+
 function getBankListCustDebit() {
     $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
 
@@ -2878,6 +2945,25 @@ function getBankListCustDebit() {
     });
 
 }
+
+function getBankListCustCredit() {
+    $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
+
+        var html = '';
+
+        success.forEach(function(ele) {
+            if (ele.Name != "Profit Loss") {
+                html += `<option>` + ele.Name + `</option>`
+            }
+        }, this)
+
+        $('#cpBListCreditCheque').append(html);
+        $('#cpBListCreditOnline').append(html);
+
+    });
+
+}
+
 $('#cpBListDebitCheque').on('change', function() {
     $('#cpAListDebitCheque').html('');
 
@@ -2913,6 +2999,41 @@ $('#cpBListDebitOnline').on('change', function() {
 
 });
 
+$('#cpBListCreditCheque').on('change', function() {
+    $('#cpAListCreditCheque').html('');
+
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#cpBListCreditCheque').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Account</option>`
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#cpAListCreditCheque').append(html);
+    });
+
+
+});
+$('#cpBListCreditOnline').on('change', function() {
+    $('#cpAListCreditOnline').html('');
+
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#cpBListCreditOnline').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Account</option>`
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#cpAListCreditOnline').append(html);
+    });
+
+
+});
+
 function getSl() {
     var html = "";
     $.get(apiPath + "Suppliers", function(success) {
@@ -2936,6 +3057,15 @@ $("#supSl1").on('change', function() {
         $("#supCarList").append(html);
     })
 })
+$("#cust").on('change', function() {
+    if ($("#cust").val() == "Assign Car") {
+        $("#custAssignCar").css('display', 'block');
+        $("#customerPaymentCredit").css('display', 'none');
+    } else if ($("#cust").val() == "Pay Customer") {
+        $("#custAssignCar").css('display', 'none');
+        $("#customerPaymentCredit").css('display', 'block');
+    }
+});
 $("#supCarList").on('change', function() {
     var html = ""
     $.get(apiPath + "Cars?[filter][where][CarID]=" + $("#supCarList").val(), function(success) {
@@ -3013,6 +3143,7 @@ $('#debit').on('show.bs.modal', function() {
 });
 
 $('#credit').on('show.bs.modal', function() {
+    getCustListCreditTransaction();
     getInvestersListCredit();
     getCustomersListCredit();
     getBankListCredit();
@@ -3023,6 +3154,7 @@ $('#credit').on('show.bs.modal', function() {
     iBListCreditCheque();
     iListCreditOnline();
     iBListCreditOnline();
+    getBankListBdivOnline()
     getSupplierlist();
     getCarListDebitSupplier();
     register(0);
@@ -3030,6 +3162,7 @@ $('#credit').on('show.bs.modal', function() {
     register3(0);
     register4(0);
     getCarListCreditCustomer();
+    getBankListCustCredit();
     getcreditCustomerList();
     /* getBankListAccountBdiv();
      getBankListBdivCheque();

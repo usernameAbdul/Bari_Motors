@@ -218,20 +218,153 @@ folder instead of downloading all of them to reduce the load. -->
 </select>
                                         </div>
                                         <hr>
+
+
+
+
+
+
+
                                         <div id="customerDiv">
+
+
                                             <div class="form-group">
-                                                <label>Customer List:</label>
-                                                <select class="form-control" id="creditCustomerList">
+                                                <label>Select an Option:</label>
+                                                <select class="form-control" id="cust">
+<option>Pay Customer</option>
+<option>Assign Car</option>
+</select>
+                                            </div>
+
+
+                                            <div id="custAssignCar">
+                                                <div class="form-group">
+                                                    <label>Customer List:</label>
+                                                    <select class="form-control" id="creditCustomerList">
 <option>Select Customer</option>
 </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Cars:</label>
-                                                <select class="form-control" id="custCarList">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Cars:</label>
+                                                    <select class="form-control" id="custCarList">
 <option>Select Car</option>
 </select>
+                                                </div>
                                             </div>
+
+
+
+
+
+
+
+
+                                            <div id="customerPaymentCredit">
+                                                <div class="form-group">
+                                                    <label for="cpCredit">Transaction Type:</label>
+                                                    <select class="form-control" id="cpCredit">
+    <option >Cash In Hand</option>
+    <option>Cheque</option>
+    <option>Online Payment</option>
+    </select>
+                                                </div>
+
+
+
+
+                                                <div id="cpCihCredit">
+                                                    <div class="form-group">
+                                                        <label>Customer's list:</label>
+                                                        <select class="form-control" id="cpListCredit">
+    <option>Select Customer</option>
+    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="cpAmountCredit">
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div id="cpChequeCredit">
+                                                    <div class="form-group">
+                                                        <label>Customer list:</label>
+                                                        <select class="form-control" id="cpListCreditCheque">
+    <option>Select Customer</option>
+    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Banks list:</label>
+                                                        <select class="form-control" id="cpBListCreditCheque">
+    <option>Select Bank</option>
+    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Accounts list:</label>
+                                                        <select class="form-control" id="cpAListCreditCheque">
+    <option>Select Account</option>
+    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Cheque No:</label>
+                                                        <input type="text" class="form-control" id="cpCnoCredit">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="cpAmountCreditCheque">
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div id="cpOnlineCredit">
+                                                    <div class="form-group">
+                                                        <label>Customer list:</label>
+                                                        <select class="form-control" id="cpListCreditOnline">
+    <option>Select Customer</option>
+    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Banks list:</label>
+                                                        <select class="form-control" id="cpBListCreditOnline">
+    <option>Select Bank</option>
+    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Accounts list:</label>
+                                                        <select class="form-control" id="cpAListCreditOnline">
+    <option>Select Account</option>
+    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="cpAmountCreditOnline">
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+
+
+
+
+
+
+
+
                                         </div>
+
+
+
+
+
+
+
                                         <div id="suppliersCar">
                                             <div class="form-group">
                                                 <label>Suppliers List:</label>
@@ -446,6 +579,21 @@ folder instead of downloading all of them to reduce the load. -->
                                             </div>
                                             <!-- end -->
                                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         <!-- car div end -->
                                         <div id="bank">
                                             <!-- start -->
@@ -453,13 +601,12 @@ folder instead of downloading all of them to reduce the load. -->
                                                 <label>Transaction Type:</label>
                                                 <select class="form-control" id="sel2">
 <option>Cheque Submission</option>
-<option>Cheque</option>
-<option>Online Payment</option>
+<option>ATM</option>
 </select>
                                             </div>
                                             <div class="cashChecked" id="bankDiv1">
                                                 <hr>
-                                                <h3 class="text-align">Cash In Hand <span><i class="fa fa-plus cihBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times cihBankRemove" aria-hidden="true"></i></span></h3>
+                                                <h3 class="text-align">Cash In Hand></h3>
                                                 <div class="form-group">
                                                     <label>Bank's list:</label>
                                                     <select class="form-control" id="bListChequetoCih">
@@ -481,6 +628,14 @@ folder instead of downloading all of them to reduce the load. -->
                                                     <input type="text" class="form-control" id="amountChequetoCih">
                                                 </div>
                                             </div>
+
+
+
+
+
+
+
+
                                             <div class="chequeChecked" id="bankDiv2">
                                                 <hr>
                                                 <h3 class="text-align">Cheque Info <span><i class="fa fa-plus ciBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times ciBankRemove" aria-hidden="true"></i></span></h3>
@@ -517,22 +672,28 @@ folder instead of downloading all of them to reduce the load. -->
 <input type="text" class="form-control" id="chequeAmountBdiv">
 </div> -->
                                             </div>
+
+
+
+
+
+
                                             <div class="onlineChecked " id="bankDiv3">
                                                 <hr>
-                                                <h3 class="text-align">Online Transfer <span><i class="fa fa-plus oBankAdd" aria-hidden="true" ></i></span> <span><i class="fa fa-times oBankRemove" aria-hidden="true"></i></span></h3>
-                                                <!-- <div class="form-group">
-<label>Bank's list:</label >
+                                                <h3 class="text-align">ATM</h3>
+                                                <div class="form-group">
+                                                    <label>Bank's list:</label >
 <select class="form-control" id="bankListBdivOnline">
 <option>Select Bank</option>
 </select>
 </div>
 <div class="form-group">
-<label>Account No (Amount Deducted from):</label >
+<label>Account ID :</label >
 <select class="form-control" id="onlineAccountId1">
 <option>Select Account</option>
 </select>
 </div>
-<div class="form-group">
+<!-- <div class="form-group">
 <label>Bank's list:</label >
 <select class="form-control" id="bankListBdivOnline2">
 <option>Select Bank</option>
@@ -543,14 +704,29 @@ folder instead of downloading all of them to reduce the load. -->
 <select class="form-control" id="onilneAccountId2">
 <option>Select Account</option>
 </select>
-</div>
+</div> -->
 <div class="form-group">
 <label>Amount:</label>
-<input type="text" class="form-control" id="onlineAmountBdiv">
-</div> -->
+                                                    <input type="text" class="form-control" id="onlineAmountBdiv">
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     </form>
                                 </div>
                             </div>
