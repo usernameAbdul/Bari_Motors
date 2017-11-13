@@ -231,7 +231,7 @@ folder instead of downloading all of them to reduce the load. -->
                                             <div class="form-group">
                                                 <label>Select an Option:</label>
                                                 <select class="form-control" id="cust">
-<option>Pay Customer</option>
+<option>Get Paid</option>
 <option>Assign Car</option>
 </select>
                                             </div>
@@ -263,10 +263,10 @@ folder instead of downloading all of them to reduce the load. -->
                                                 <div class="form-group">
                                                     <label for="cpCredit">Transaction Type:</label>
                                                     <select class="form-control" id="cpCredit">
-    <option >Cash In Hand</option>
-    <option>Cheque</option>
-    <option>Online Payment</option>
-    </select>
+<option >Cash In Hand</option>
+<option>Cheque</option>
+<option>Online Payment</option>
+</select>
                                                 </div>
 
 
@@ -276,8 +276,8 @@ folder instead of downloading all of them to reduce the load. -->
                                                     <div class="form-group">
                                                         <label>Customer's list:</label>
                                                         <select class="form-control" id="cpListCredit">
-    <option>Select Customer</option>
-    </select>
+<option>Select Customer</option>
+</select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Amount:</label>
@@ -292,20 +292,20 @@ folder instead of downloading all of them to reduce the load. -->
                                                     <div class="form-group">
                                                         <label>Customer list:</label>
                                                         <select class="form-control" id="cpListCreditCheque">
-    <option>Select Customer</option>
-    </select>
+<option>Select Customer</option>
+</select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Banks list:</label>
                                                         <select class="form-control" id="cpBListCreditCheque">
-    <option>Select Bank</option>
-    </select>
+<option>Select Bank</option>
+</select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Accounts list:</label>
                                                         <select class="form-control" id="cpAListCreditCheque">
-    <option>Select Account</option>
-    </select>
+<option>Select Account</option>
+</select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Cheque No:</label>
@@ -324,20 +324,20 @@ folder instead of downloading all of them to reduce the load. -->
                                                     <div class="form-group">
                                                         <label>Customer list:</label>
                                                         <select class="form-control" id="cpListCreditOnline">
-    <option>Select Customer</option>
-    </select>
+<option>Select Customer</option>
+</select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Banks list:</label>
                                                         <select class="form-control" id="cpBListCreditOnline">
-    <option>Select Bank</option>
-    </select>
+<option>Select Bank</option>
+</select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Accounts list:</label>
                                                         <select class="form-control" id="cpAListCreditOnline">
-    <option>Select Account</option>
-    </select>
+<option>Select Account</option>
+</select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Amount:</label>
@@ -366,17 +366,117 @@ folder instead of downloading all of them to reduce the load. -->
 
 
                                         <div id="suppliersCar">
+
                                             <div class="form-group">
-                                                <label>Suppliers List:</label>
-                                                <select class="form-control" id="debitSupplier">
-<option>Select Supplier</option>
+                                                <label>Select an Option:</label>
+                                                <select class="form-control" id="whatToDo">
+<option>Assign Car</option>
+<option>Get Paid</option>
 </select>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Cars:</label>
-                                                <select class="form-control" id="debitCarSupplier">
+
+                                            <div id="getPaidBySupplier">
+                                                <div class="form-group">
+                                                    <label for="spCredit">Transaction Type:</label>
+                                                    <select class="form-control" id="spCredit">
+<option >Cash In Hand</option>
+<option>Cheque</option>
+<option>Online Payment</option>
+</select>
+                                                </div>
+
+
+
+
+                                                <div id="spCihCredit">
+                                                    <div class="form-group">
+                                                        <label>Supplier's list:</label>
+                                                        <select class="form-control" id="spListCredit">
+<option>Select Supplier</option>
+</select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="spAmountCredit">
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div id="spChequeCredit">
+                                                    <div class="form-group">
+                                                        <label>Supplier's list:</label>
+                                                        <select class="form-control" id="spListCreditCheque">
+<option>Select Supplier</option>
+</select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Banks list:</label>
+                                                        <select class="form-control" id="spBListCreditCheque">
+<option>Select Bank</option>
+</select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Accounts list:</label>
+                                                        <select class="form-control" id="spAListCreditCheque">
+<option>Select Account</option>
+</select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Cheque No:</label>
+                                                        <input type="text" class="form-control" id="spCnoCredit">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="spAmountCreditCheque">
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div id="spOnlineCredit">
+                                                    <div class="form-group">
+                                                        <label>Supplier list:</label>
+                                                        <select class="form-control" id="spListCreditOnline">
+<option>Select Supplier</option>
+</select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Banks list:</label>
+                                                        <select class="form-control" id="spBListCreditOnline">
+<option>Select Bank</option>
+</select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Accounts list:</label>
+                                                        <select class="form-control" id="spAListCreditOnline">
+<option>Select Account</option>
+</select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="usr">Amount:</label>
+                                                        <input type="text" class="form-control" id="spAmountCreditOnline">
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div id="assignCarToSupplier">
+                                                <div class="form-group">
+                                                    <label>Suppliers List:</label>
+                                                    <select class="form-control" id="debitSupplier">
+<option>Select Supplier</option>
+</select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Cars:</label>
+                                                    <select class="form-control" id="debitCarSupplier">
 <option>Select Car</option>
 </select>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -521,11 +621,11 @@ folder instead of downloading all of them to reduce the load. -->
                                             </div>
                                             <div class="form-group">
                                                 <label for="usr">Profit Ratio:</label>
-                                                <input type="text" class="form-control" id="creditpr">
+                                                <input type="number" class="form-control" id="creditpr">
                                             </div>
                                             <div class="form-group">
                                                 <label for="usr">Sale Price</label>
-                                                <input type="text" class="form-control" id="sp">
+                                                <input type="number" class="form-control" id="sp">
                                             </div>
                                             <!-- <div class="form-group">
 <label for="usr">Date:</label>
@@ -547,7 +647,7 @@ folder instead of downloading all of them to reduce the load. -->
                                                     <h3 class="text-align">Cash In Hand </h3>
                                                     <div class="form-group">
                                                         <label for="usr">Amount:</label>
-                                                        <input type="text" class="form-control" id="cihCreditAmount">
+                                                        <input type="number" class="form-control" id="cihCreditAmount">
                                                     </div>
                                                 </div>
 
@@ -570,7 +670,7 @@ folder instead of downloading all of them to reduce the load. -->
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Account No:</label>
-                                                        <input type="text" class="form-control" id="accNoCredit0">
+                                                        <input type="number" class="form-control" id="accNoCredit0">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Check No:</label>
@@ -578,7 +678,7 @@ folder instead of downloading all of them to reduce the load. -->
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Amount:</label>
-                                                        <input type="text" class="form-control" id="chequeCreditAmount0">
+                                                        <input type="number" class="form-control" id="chequeCreditAmount0">
                                                     </div>
                                                     <!-- <div class="form-group">
 <div><label for="usr">Status:</label></div>
@@ -603,11 +703,11 @@ folder instead of downloading all of them to reduce the load. -->
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Account No:</label>
-                                                        <input type="text" class="form-control" id="accNoCreditOnline0">
+                                                        <input type="number" class="form-control" id="accNoCreditOnline0">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="usr">Amount:</label>
-                                                        <input type="text" class="form-control" id="onlineCreditAmount0">
+                                                        <input type="number" class="form-control" id="onlineCreditAmount0">
                                                     </div>
                                                 </div>
                                             </div>
@@ -932,9 +1032,9 @@ folder instead of downloading all of them to reduce the load. -->
                                             <div class="form-group">
                                                 <label for="sup">Select an Option:</label>
                                                 <select class="form-control" id="sup">
-                <option >Pay Supplier</option>
-                <option>Sale Car</option>
-                </select>
+<option >Pay Supplier</option>
+<option>Sale Car</option>
+</select>
                                             </div>
                                             <div id="saleCar">
                                                 <div class="form-group">
@@ -1535,8 +1635,17 @@ folder instead of downloading all of them to reduce the load. -->
             <!-- Modal -->
             <!-- Main content -->
             <section class="content">
+
                 <div class="row">
-                    <div class="col-lg-6">
+
+
+                    <div class="input-group" id="dayBookDate">
+                        <input id="dbd" type="date" class="form-control">
+                        <span class="input-group-addon" id="dateSubmit"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 ">
                         <h2 class="text-align">Credit <a href="#" data-toggle="modal" onclick="countZero()" data-target="#credit"><span><i class="fa fa-plus-square" aria-hidden="true"></i></span></a></h2>
                         <table id="creditTable" class="table table-bordered">
                             <thead>
@@ -1551,7 +1660,7 @@ folder instead of downloading all of them to reduce the load. -->
 </tbody> -->
                         </table>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <h2 class="text-align">Debit <a href="#" data-toggle="modal" onclick="dcountZero()" data-target="#debit"><span><i class="fa fa-plus-square" aria-hidden="true"></i></span></a></h2>
                         <table id="debitTable" class="table table-bordered">
                             <thead>
@@ -1565,6 +1674,7 @@ folder instead of downloading all of them to reduce the load. -->
                             <!-- <tbody id="debitTable">
 </tbody> -->
                         </table>
+                    </div>
             </section>
             <!-- /.content -->
             </div>
@@ -1580,97 +1690,97 @@ folder instead of downloading all of them to reduce the load. -->
             <!-- Add the sidebar's background. This div must be placed
 immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
-            </div>
-            <!-- ./wrapper -->
-            <!-- jQuery UI 1.11.4 -->
-            <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-            <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-            <script>
-                $.widget.bridge('uibutton', $.ui.button);
-            </script>
-            <!-- Bootstrap 3.3.7 -->
-            <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="pages/js/js.js"></script>
-            <script type="text/javascript" src="pages/js/toastr.min.js"></script>
-            <!-- Morris.js charts -->
-            <script src="bower_components/raphael/raphael.min.js"></script>
-            <script src="bower_components/morris.js/morris.min.js"></script>
-            <!-- Sparkline -->
-            <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-            <!-- jvectormap -->
-            <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-            <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+        </div>
+        <!-- ./wrapper -->
+        <!-- jQuery UI 1.11.4 -->
+        <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button);
+        </script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="pages/js/js.js"></script>
+        <script type="text/javascript" src="pages/js/toastr.min.js"></script>
+        <!-- Morris.js charts -->
+        <script src="bower_components/raphael/raphael.min.js"></script>
+        <script src="bower_components/morris.js/morris.min.js"></script>
+        <!-- Sparkline -->
+        <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+        <!-- jvectormap -->
+        <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 
-            <!-- jQuery Knob Chart -->
-            <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-            <!-- daterangepicker -->
-            <script src="bower_components/moment/min/moment.min.js"></script>
-            <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-            <!-- datepicker -->
-            <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-            <!-- Bootstrap WYSIHTML5 -->
-            <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-            <!-- Slimscroll -->
-            <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-            <!-- FastClick -->
-            <script src="bower_components/fastclick/lib/fastclick.js"></script>
-            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="bower_components/moment/min/moment.min.js"></script>
+        <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- datepicker -->
+        <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <!-- Slimscroll -->
+        <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="bower_components/fastclick/lib/fastclick.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-            <!-- AdminLTE App -->
-            <script src="dist/js/adminlte.min.js"></script>
-            <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-            <script src="dist/js/pages/dashboard.js"></script>
-            <!-- AdminLTE for demo purposes -->
-            <script src="dist/js/demo.js"></script>
+        <!-- AdminLTE App -->
+        <script src="dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="dist/js/pages/dashboard.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="dist/js/demo.js"></script>
 
-            <script type="text/javascript">
-                getCreditTransactionD();
-                getDebitTransactionD();
+        <script type="text/javascript">
+            getCreditTransactionD();
+            getDebitTransactionD();
 
-                function getCreditTransactionD() {
+            function getCreditTransactionD() {
 
-                    var table = $('#creditTable').DataTable({
-                        "ajax": {
-                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Credit",
-                            "dataSrc": ""
-                        },
-                        "order": [
-                            [0, "desc"]
-                        ],
-                        "columns": [{
-                            "data": "Date"
-                        }, {
-                            "data": "Reason"
-                        }, {
-                            "data": "DO"
-                        }, {
-                            "data": "Amount"
-                        }],
-                    });
-                }
+                var table = $('#creditTable').DataTable({
+                    "ajax": {
+                        "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Credit",
+                        "dataSrc": ""
+                    },
+                    "order": [
+                        [0, "desc"]
+                    ],
+                    "columns": [{
+                        "data": "Date"
+                    }, {
+                        "data": "Reason"
+                    }, {
+                        "data": "DO"
+                    }, {
+                        "data": "Amount"
+                    }],
+                });
+            }
 
-                function getDebitTransactionD() {
+            function getDebitTransactionD() {
 
-                    var table = $('#debitTable').DataTable({
-                        "ajax": {
-                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Debit",
-                            "dataSrc": ""
-                        },
-                        "order": [
-                            [0, "desc"]
-                        ],
-                        "columns": [{
-                            "data": "Date"
-                        }, {
-                            "data": "Reason"
-                        }, {
-                            "data": "DO"
-                        }, {
-                            "data": "Amount"
-                        }],
-                    });
-                }
-            </script>
+                var table = $('#debitTable').DataTable({
+                    "ajax": {
+                        "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Debit",
+                        "dataSrc": ""
+                    },
+                    "order": [
+                        [0, "desc"]
+                    ],
+                    "columns": [{
+                        "data": "Date"
+                    }, {
+                        "data": "Reason"
+                    }, {
+                        "data": "DO"
+                    }, {
+                        "data": "Amount"
+                    }],
+                });
+            }
+        </script>
 </body>
 
 </html>

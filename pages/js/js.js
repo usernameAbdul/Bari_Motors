@@ -714,6 +714,27 @@ $('#cpCredit').on('change', function() {
         $('#cpOnlineCredit').css('display', 'block');
     }
 });
+$('#spCredit').on('change', function() {
+    var name = $('#spCredit').val();
+    console.log(name);
+    if (name == "Cheque") {
+        console.log(name);
+        $('#spCihCredit').css('display', 'none');
+        $('#spChequeCredit').css('display', 'block');
+        $('#spOnlineCredit').css('display', 'none');
+
+    } else if (name == "Cash In Hand") {
+        console.log(name);
+        $('#spCihCredit').css('display', 'block');
+        $('#spChequeCredit').css('display', 'none');
+        $('#spOnlineCredit').css('display', 'none');
+    } else if (name == "Online Payment") {
+        console.log(name);
+        $('#spCihCredit').css('display', 'none');
+        $('#spChequeCredit').css('display', 'none');
+        $('#spOnlineCredit').css('display', 'block');
+    }
+});
 
 $('#investment').on('change', function() {
     var name = $('#investment').val();
@@ -1333,6 +1354,9 @@ function getSupplierlist() {
 
         $('#debitSupplier').append(html);
         $('#creditSup').append(html);
+        $('#spListCreditCheque').append(html);
+        $('#spListCreditOnline').append(html);
+        $('#spListCredit').append(html);
     });
 }
 
@@ -1786,16 +1810,36 @@ function addCredit() {
         }
     }
     if ($('#sel1').val() == "Supplier") {
-        $.get(apiPath + "DayBooks/SupplierToCar?SupplierID=" + $('#debitSupplier').val() + "&CarID=" + $('#debitCarSupplier').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
-            location.reload();
-        });
+        if ($("#whatToDo").val() == "Assign Car") {
+            $.get(apiPath + "DayBooks/SupplierToCar?SupplierID=" + $('#debitSupplier').val() + "&CarID=" + $('#debitCarSupplier').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
+                location.reload();
+            });
+        } else if ($("#whatToDo").val() == "Get Paid") {
+            if ($("#spCredit").val() == "Cash In Hand") {
+                $.get(apiPath + "Suppliers/SupplierToCash?SupplierID=" + $("#spListCredit").val() + "&Amount=" + $("#spAmountCredit").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                    //console.log(success);
+                    location.reload();
+                })
+            } else if ($("#spCredit").val() == "Cheque") {
+                $.get(apiPath + "Suppliers/SupplierToCheque?SupplierID=" + $("#spListCreditCheque").val() + "&Amount=" + $("#spAmountCreditCheque").val() + "&AccountID=" + $("#spAListCreditCheque").val() + "&ChequeNo=" + $("#spCnoCredit").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                    location.reload();
+                    //console.log(success);
+                })
+
+            } else if ($("#spCredit").val() == "Online Payment") {
+                $.get(apiPath + "Suppliers/SupplierToTransfer?SupplierID=" + $("#spListCreditOnline").val() + "&Amount=" + $("#spAmountCreditOnline").val() + "&AccountID=" + $("#spAListCreditOnline").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
+                    location.reload();
+                    //console.log(success);
+                })
+            }
+        }
     }
     if ($('#sel1').val() == "Customer") {
         if ($("#cust").val() == "Assign Car") {
             $.get(apiPath + "Customers/CarToCustomer?CustomerID=" + $('#creditCustomerList').val() + "&CarID=" + $('#custCarList').val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success, status) {
                 location.reload();
             });
-        } else if ($("#cust").val() == "Pay Customer") {
+        } else if ($("#cust").val() == "Get Paid") {
             if ($("#cpCredit").val() == "Cash In Hand") {
                 $.get(apiPath + "Customers/CustomerPayCash?CustomerID=" + $("#cpListCredit").val() + "&Amount=" + $("#cpAmountCredit").val() + "&AddedBy=" + localStorage.getItem("myVar") + "", function(success) {
                     //console.log(success);
@@ -3019,6 +3063,8 @@ function getBankListCustCredit() {
 
         $('#cpBListCreditCheque').append(html);
         $('#cpBListCreditOnline').append(html);
+        $('#spBListCreditCheque').append(html);
+        $('#spBListCreditOnline').append(html);
 
     });
 
@@ -3117,11 +3163,37 @@ $("#supSl1").on('change', function() {
         $("#supCarList").append(html);
     })
 })
+$("#whatToDo").on('change', function() {
+    var name = $("#whatToDo").val();
+    if (name == "Assign Car") {
+        $("#getPaidBySupplier").css('display', 'none');
+        $("#assignCarToSupplier").css('display', 'block');
+    } else if (name == "Get Paid") {
+        $("#assignCarToSupplier").css('display', 'none');
+        $("#getPaidBySupplier").css('display', 'block');
+    }
+})
+$("#whosCarSelect").on('change', function() {
+    console.log("whosCarSelect");
+    if ($("#whosCarSelect").val() == "Supplier's Car") {
+        console.log("s");
+        $("#creditpr").val(100);
+        $("#creditpr").prop('disabled', true);
+    } else if ($("#whosCarSelect").val() == "Customer's Car") {
+        console.log("c");
+        $("#creditpr").val(100);
+        $("#creditpr").prop('disabled', true);
+    } else if ($("#whosCarSelect").val() == "Investor's Car") {
+        console.log("i");
+        $("#creditpr").val(0);
+        $("#creditpr").prop('disabled', false);
+    }
+});
 $("#cust").on('change', function() {
     if ($("#cust").val() == "Assign Car") {
         $("#custAssignCar").css('display', 'block');
         $("#customerPaymentCredit").css('display', 'none');
-    } else if ($("#cust").val() == "Pay Customer") {
+    } else if ($("#cust").val() == "Get Paid") {
         $("#custAssignCar").css('display', 'none');
         $("#customerPaymentCredit").css('display', 'block');
     }
@@ -3130,6 +3202,37 @@ $("#supCarList").on('change', function() {
     var html = ""
     $.get(apiPath + "Cars?[filter][where][CarID]=" + $("#supCarList").val(), function(success) {
         $("#supPp").val(success[0].PurchasePrice);
+    })
+})
+$("#spBListCreditCheque").on('change', function() {
+    $('#spAListCreditCheque').html('');
+
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#spBListCreditCheque').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Account</option>`
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#spAListCreditCheque').append(html);
+    })
+})
+
+$("#spBListCreditOnline").on('change', function() {
+    $('#spAListCreditOnline').html('');
+
+    $.get(apiPath + "Accounts?filter[where][BankName]=" + $('#spBListCreditOnline').val() + "", function(success) {
+
+        var html = '';
+        html += `<option>Select Account</option>`
+
+        success.forEach(function(ele) {
+
+            html += `<option>` + ele.AccountID + `</option>`
+        }, this)
+        $('#spAListCreditOnline').append(html);
     })
 })
 $('#cars').on('show.bs.modal', function() {
@@ -3156,6 +3259,13 @@ function getPayableTotal() {
         $("#payableCount").html("Rs. " + success);
     })
 }
+
+$("#dateSubmit").on('click', function() {
+    console.log($("#dbd").val())
+    var date = $("#dbd").val();
+    // console.log(date.getMonth());
+})
+
 
 function bariProfit() {
 

@@ -261,7 +261,20 @@ table {
     display: none;
 }
 
+#dayBookDate {
+    margin-left: 10px;
+    width: 20%;
+}
+
 #investorDivCredit {
+    display: none;
+}
+
+#spChequeCredit {
+    display: none;
+}
+
+#spOnlineCredit {
     display: none;
 }
 
@@ -298,6 +311,10 @@ table {
 }
 
 #supCarSale {
+    display: none;
+}
+
+#getPaidBySupplier {
     display: none;
 }
 
