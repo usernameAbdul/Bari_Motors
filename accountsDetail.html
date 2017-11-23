@@ -203,6 +203,7 @@
                             <th>Transaction Type</th>
                             <th>Date</th>
                             <th>Amount</th>
+                            <th>Balance</th>
                             <th>Added By</th>
                         </tr>
                     </thead>
@@ -231,7 +232,7 @@
                     $("#AccountIdIs").html("AccountID : " + id);
                     var table = $('#viewAccountTable').DataTable({
                         "ajax": {
-                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][PaymentAccount]=" + id,
+                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][and][0][PaymentAccount]=" + id + "&filter[where][and][1][PaidStatus]=true",
                             "dataSrc": ""
                         },
                         "order": [
@@ -247,6 +248,8 @@
                             "data": "Date"
                         }, {
                             "data": "Amount"
+                        }, {
+                            "data": "Balance"
                         }, {
                             "data": "AddedBy"
                         }],
