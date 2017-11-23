@@ -1126,7 +1126,7 @@ $('.checkCar').on('click', function() {
         $('#newCar').show();
     }
     if (radio == "old") {
-        $('#old').css('display', 'inline-block');
+        $('#old').css('display', 'block');
         $('#new').css('display', 'none');
         $('#oldCar').show();
         $('#newCar').hide();
@@ -1158,13 +1158,14 @@ function addOldCar() {
             "CarID": $("#olDcarId").val(),
             "DO": "1122",
             "Make": $("#olDcarMake").val(),
+            "MYear": $("#manufactureYearOld").val(),
             "Model": $("#olDcarModel").val(),
             "Color": $("#olDcarColor").val(),
             "EngineNo": $("#olDcarEng").val(),
             "ChasisNo": $("#olDchNo").val(),
             "ProfitMargin": $("#olDpm").val(),
             "PurchasePrice": $("#olDpp").val(),
-            "SalePrice": $("#olDsp").val(),
+            //"SalePrice": $("#olDsp").val(),
             "PurchaseDate": new Date(),
             "CarCondition": "Old",
             "CarNumber": $("#Cn").val(),
@@ -1192,6 +1193,7 @@ function addCar() {
             "DO": "1122",
             "Make": $("#carMake").val(),
             "Model": $("#carModel").val(),
+            "MYear": $("#manufactureYear").val(),
             "Color": $("#carColor").val(),
             "EngineNo": $("#carEng").val(),
             "ChasisNo": $("#chNo").val(),
@@ -1232,7 +1234,7 @@ function getOldCar() {
 
 
             html += '<tr>' +
-                '<td>' + ele.CarID + '</td><td>' + ele.Make + '</td> <td>' + ele.Color + '</td> <td>' + ele.ChasisNo + '</td> <td>' + ele.EngineNo + '</td> <td>' + ele.PurchasePrice + '</td><td>' + ele.PurchaseDate + '</td><td>' + ele.SalePrice + '</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td></tr>'
+                '<td>' + ele.CarID + '</td><td>' + ele.Make + '</td> <td>' + ele.Color + '</td> <td>' + ele.ChasisNo + '</td> <td>' + ele.EngineNo + '</td> <td>' + ele.PurchasePrice + '</td><td>' + ele.PurchaseDate + '</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td></tr>'
 
         }, this)
 
@@ -3260,11 +3262,7 @@ function getPayableTotal() {
     })
 }
 
-$("#dateSubmit").on('click', function() {
-    console.log($("#dbd").val())
-    var date = $("#dbd").val();
-    // console.log(date.getMonth());
-})
+
 
 
 function bariProfit() {
@@ -3344,3 +3342,118 @@ $('#credit').on('show.bs.modal', function() {
 $('#addAccount').on('show.bs.modal', function() {
     getBankListAccount();
 });
+$('#cars').on('show.bs.modal', function() {
+    getManufactureYear();
+});
+$('#carOld').on('show.bs.modal', function() {
+    getManufactureYear();
+});
+
+function addMake() {
+
+    data = {
+        MakeName: $("#make").val()
+    }
+    $.post(apiPath + "CarMakes", data, function(success) {
+        location.reload();
+        // console.log(success);
+
+    })
+
+}
+
+function addColor() {
+
+    data = {
+        ColorName: $("#color").val()
+    }
+    $.post(apiPath + "CarColors", data, function(success) {
+        location.reload();
+        //console.log(success);
+    })
+
+}
+
+function addModel() {
+    // console.log($("#model").val())
+    data = {
+        ModelName: $("#model").val()
+    }
+    $.post(apiPath + "CarModels", data, function(success) {
+        location.reload();
+        // console.log(success);
+    })
+}
+
+function addYear() {
+    data = {
+        YearNumber: $("#year").val()
+    }
+    $.post(apiPath + "CarYears", data, function(success) {
+        location.reload();
+        //console.log(success);
+    })
+
+}
+
+function getModel() {
+    var html;
+    $.get(apiPath + "CarModels", function(success) {
+        success.forEach(function(ele) {
+            html = `<tr>
+            <td>${ele.ModelName}<span class="pull-right"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i> </a><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> </a></span></td>
+            </tr>`
+            $("#modelTable").append(html);
+        })
+    })
+}
+
+function getColor() {
+    var html;
+    $.get(apiPath + "CarColors", function(success) {
+        success.forEach(function(ele) {
+            html = `<tr>
+            <td>${ele.ColorName}<span class="pull-right"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i> </a><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> </a></span></td>
+            </tr>`
+            $("#colorTable").append(html);
+        })
+    })
+}
+
+function getYear() {
+    var html;
+    $.get(apiPath + "CarYears", function(success) {
+        success.forEach(function(ele) {
+            html = `<tr>
+            <td>${ele.YearNumber}<span class="pull-right"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i> </a><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> </a></span></td>
+            </tr>`
+            $("#yearTable").append(html);
+        })
+    })
+}
+
+function getMake() {
+    var html;
+    $.get(apiPath + "CarMakes", function(success) {
+        success.forEach(function(ele) {
+            html = `<tr>
+            <td>${ele.MakeName}<span class="pull-right"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i> </a><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> </a></span></td>
+            </tr>`
+            $("#makeTable").append(html);
+        })
+    })
+}
+
+function getManufactureYear() {
+    var html = '';
+    $.get(apiPath + "CarYears", function(success) {
+        console.log(success)
+        success.forEach(function(ele) {
+            console.log("iteration")
+            html += `<option>${ele.YearNumber}</option>`
+
+        })
+        $("#manufactureYear").append(html);
+        $("#manufactureYearOld").append(html);
+    })
+}

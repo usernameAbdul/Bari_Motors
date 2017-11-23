@@ -153,13 +153,7 @@ folder instead of downloading all of them to reduce the load. -->
 </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="expenses.html">
-                            <i class="fa fa-money" aria-hidden="true"></i><span>Expenses</span>
-                            <span class="pull-right-container">
-</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="dayBook.html">
                             <i class="fa fa-book"></i> <span>Day Book</span>
@@ -167,18 +161,18 @@ folder instead of downloading all of them to reduce the load. -->
 </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="DO_form.html">
-                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> <span>Delivery Order</span>
-                            <span class="pull-right-container">
-</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="Customer.html">
                             <i class="fa fa-users" aria-hidden="true"></i></i><span>Customers</span>
                             <span class="pull-right-container">
 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="option.html">
+                            <i class="fa fa-filter" aria-hidden="true"></i></i><span>Car Add-ons</span>
+                            <span class="pull-right-container"></span>
                         </a>
                     </li>
                 </ul>
@@ -1702,6 +1696,7 @@ immediately after the control sidebar -->
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="pages/js/js.js"></script>
         <script type="text/javascript" src="pages/js/toastr.min.js"></script>
+        <script type="text/javascript" src="pages/js/date.js"></script>
         <!-- Morris.js charts -->
         <script src="bower_components/raphael/raphael.min.js"></script>
         <script src="bower_components/morris.js/morris.min.js"></script>
@@ -1734,14 +1729,28 @@ immediately after the control sidebar -->
         <script src="dist/js/demo.js"></script>
 
         <script type="text/javascript">
-            getCreditTransactionD();
-            getDebitTransactionD();
+            $("#dateSubmit").on('click', function() {
 
-            function getCreditTransactionD() {
+                var date = new Date('' + $("#dbd").val() + '');
+                // console.log(date)
+                var newDate = date.toString('dd/MM/yyyy');
+                $("#creditTable").dataTable().fnDestroy();
+                $("#debitTable").dataTable().fnDestroy();
+                getCreditTransactionD(newDate);
+                getDebitTransactionD(newDate);
+                // console.log(date.getMonth());
+            });
+            var dt = new Date();
+            var today = dt.toString('dd/MM/yyyy');
+            //console.log(today);
+            getCreditTransactionD(today);
+            getDebitTransactionD(today);
+
+            function getCreditTransactionD(dt) {
 
                 var table = $('#creditTable').DataTable({
                     "ajax": {
-                        "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Credit",
+                        "url": "http://52.187.168.31:3000/api/Transactions?filter[where][and][0][Type]=Credit&filter[where][and][1][Date]=" + dt,
                         "dataSrc": ""
                     },
                     "order": [
@@ -1759,11 +1768,11 @@ immediately after the control sidebar -->
                 });
             }
 
-            function getDebitTransactionD() {
+            function getDebitTransactionD(dt) {
 
                 var table = $('#debitTable').DataTable({
                     "ajax": {
-                        "url": "http://52.187.168.31:3000/api/Transactions?filter[where][Type]=Debit",
+                        "url": "http://52.187.168.31:3000/api/Transactions?filter[where][and][0][Type]=Debit&filter[where][and][1][Date]=" + dt,
                         "dataSrc": ""
                     },
                     "order": [
