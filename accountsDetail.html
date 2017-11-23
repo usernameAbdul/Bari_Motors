@@ -232,7 +232,7 @@
                     $("#AccountIdIs").html("AccountID : " + id);
                     var table = $('#viewAccountTable').DataTable({
                         "ajax": {
-                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][and][0][PaymentAccount]=" + id + "&filter[where][and][1][PaidStatus]=true",
+                            "url": "http://52.187.168.31:3000/api/Transactions?filter[where][PaymentAccount]=" + id,
                             "dataSrc": ""
                         },
                         "order": [
