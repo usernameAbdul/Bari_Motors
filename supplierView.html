@@ -187,6 +187,9 @@
                     Wait..
                     <small>Control panel</small>
                 </h1>
+                <h3 id="viewMoreBalance"><b>Balance : </b>Wait..</h3>
+
+
             </section>
             <!-- Main content -->
             <section class="content">
@@ -252,7 +255,7 @@
             <script>
                 getSupplierViewD(localStorage.getItem("supplierID"));
                 // getSupplierView(localStorage.getItem("supplierID"))
-
+                getViewMoreBalance(localStorage.getItem("supplierID"));
 
                 function getSupplierViewD(id) {
                     $("#supplierHeading").html(id);

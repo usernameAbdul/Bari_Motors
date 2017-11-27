@@ -1153,6 +1153,8 @@ function expenseCount() {
 }
 
 function addOldCar() {
+    var date = new Date('' + $("#oldCarDate").val() + '');
+    var newDate = date.toString('dd/MM/yyyy');
 
     var data = {
             "CarID": $("#olDcarId").val(),
@@ -1163,8 +1165,8 @@ function addOldCar() {
             "Color": $("#olDcarColor").val(),
             "EngineNo": $("#olDcarEng").val(),
             "ChasisNo": $("#olDchNo").val(),
-            "ProfitMargin": $("#olDpm").val(),
-            "PurchasePrice": $("#olDpp").val(),
+            // "ProfitMargin": $("#olDpm").val(),
+            "PurchasePrice": newDate,
             //"SalePrice": $("#olDsp").val(),
             "PurchaseDate": new Date(),
             "CarCondition": "Old",
@@ -1187,7 +1189,8 @@ function addOldCar() {
 }
 
 function addCar() {
-
+    var date = new Date('' + $("#carDate").val() + '');
+    var newDate = date.toString('dd/MM/yyyy');
     var data = {
             "CarID": $("#carId").val(),
             "DO": "1122",
@@ -1197,9 +1200,9 @@ function addCar() {
             "Color": $("#carColor").val(),
             "EngineNo": $("#carEng").val(),
             "ChasisNo": $("#chNo").val(),
-            "ProfitMargin": $("#pm").val(),
+            // "ProfitMargin": $("#pm").val(),
             "PurchasePrice": $("#pp").val(),
-            "PurchaseDate": new Date(),
+            "PurchaseDate": newDate,
             "CarCondition": "New",
             "AddedBy": localStorage.getItem("myVar"),
             "RegistrationStatus": "Unregistered",
@@ -1330,20 +1333,24 @@ function getCar() {
 
 function addSupplier() {
     // var radio = $("input[name='type']:checked").val();
+    var date = new Date('' + $("#supDate").val() + '');
+    var newDate = date.toString('dd/MM/yyyy');
     var data = {
         "SupplierID": $("#supId").val(),
         "ShowRoomName": $("#supName").val(),
         "ContactNo": $("#supCno").val(),
-        "Payable": $("#supPayable").val(),
+        // "Payable": $("#supPayable").val(),
         "Balance": $("#supReceivable").val(),
+        "AddedDate": newDate,
         "AddedBy": localStorage.getItem("myVar")
 
 
     }
-    console.log(data)
-        // $.post(apiPath + "Suppliers", data, function(success, status) {
-        //     location.reload();
-        // });
+
+    $.post(apiPath + "Suppliers", data, function(success, status) {
+        console.log(success);
+        location.reload();
+    });
 
 }
 
@@ -1368,7 +1375,7 @@ function getSupplier() {
         var html = '';
 
         success.forEach(function(ele) {
-            html += '<tr>' + '<td>' + ele.SupplierID + '</td><td>' + ele.ShowRoomName + '</td><td>' + ele.ContactNo + '</td><td>' + ele.AddedBy + '</td><td>' + ele.Payable + '</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td></tr>'
+            html += '<tr>' + '<td>' + ele.SupplierID + '</td><td>' + ele.ShowRoomName + '</td><td>' + ele.ContactNo + '</td><td>' + ele.AddedBy + '</td><td>' + ele.Balance + '</td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td></tr>'
         }, this)
 
         $('#tableBodySupplier').append(html);
@@ -1377,13 +1384,17 @@ function getSupplier() {
 
 function addInvestor() {
     // var radio = $("input[name='type']:checked").val();
+
+    var date = new Date('' + $("#inDate").val() + '');
+    var newDate = date.toString('dd/MM/yyyy');
     var data = {
         "InvestorID": $("#inId").val(),
         "Name": $("#inName").val(),
         "ContactNo": $("#inCno").val(),
-        "Investment": $("#inInvestment").val(),
-        "Payable": $("#inPayable").val(),
-        "Receivable": $("#inReceivable").val(),
+        "Balance": $("#inInvestment").val(),
+        "AddedDate": newDate,
+        // "Payable": $("#inPayable").val(),
+        // "Receivable": $("#inReceivable").val(),
         "AddedBy": localStorage.getItem("myVar"),
         "Type": "Investor"
     }
@@ -1423,7 +1434,7 @@ function getInvestorView(id) {
     $.get(apiPath + "Investors?filter[where][InvestorID]=" + id, function(success, status) {
         success.forEach(function(ele) {
             $("#investorHeading").html(ele.InvestorID + " <small>Control panel</small>");
-            $("#viewInvestment").html("<b>Investment</b> :" + ele.Investment);
+            $("#viewInvestment").html("<b>Balance</b> :" + ele.Investment);
 
         });
     });
@@ -1497,14 +1508,17 @@ function generateAccountDiv() {
 // }
 
 function addCustomer() {
+    var date = new Date('' + $("#custDate").val() + '');
+    var newDate = date.toString('dd/MM/yyyy');
     var data = {
         "CustomerID": $("#custId").val(),
         "Name": $("#custName").val(),
         "FatherName": $("#custFName").val(),
         "ContactNo": $("#custCno").val(),
         "Address": $("#custAddress").val(),
-        "Payable": $("#custPayable").val(),
+        // "Payable": $("#custPayable").val(),
         "Balance": $("#custReceivable").val(),
+        "AddedDate": newDate,
         "AddedBy": localStorage.getItem("myVar"),
         "CNIC": $("#custCnic").val()
     }
@@ -1520,7 +1534,7 @@ function getCustomer() {
         var html = '';
 
         success.forEach(function(ele) {
-            html += ` <tr>  <td>  ${ele.CustomerID}  </td><td> ${ ele.Name}  </td><td>  ${ele.FatherName}  </td><td>  ${ele.ContactNo}  </td><td>  ${ele.Address}  </td><td>  ${ele.CNIC}  </td><td> ${ele.Payable}  </td><td>  ${ele.Balance}  </td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> <a href="#" onclick="setCustId('${ele.CustomerID}')"><span><small><u>view more</u></small></span> </a></td></tr>`
+            html += ` <tr>  <td>  ${ele.CustomerID}  </td><td> ${ ele.Name}  </td><td>  ${ele.FatherName}  </td><td>  ${ele.ContactNo}  </td><td>  ${ele.Address}  </td><td>  ${ele.CNIC}  </td><td>  ${ele.Balance}  </td><td><a href="#"><span><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#Update"></i></span></a><a href="#"><span><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#expense"></i></span></a><a href="#"><span><i class="fa fa-trash" aria-hidden="true"></i></span> <a href="#" onclick="setCustId('${ele.CustomerID}')"><span><small><u>view more</u></small></span> </a></td></tr>`
         }, this)
 
         $('#tableBodyCustomer').append(html);
@@ -1655,6 +1669,12 @@ function getInvestorCount() {
 function carSold(id) {
     $.get(apiPath + "Cars/InvestorSoldCar?InvestorID=" + id, function(success) {
         $("#viewCarSold").html("<b>Car Sold </b>:" + success.length)
+    })
+}
+
+function getViewMoreBalance(id) {
+    $.get(apiPath + "Suppliers?filter[where][SupplierID]=" + id, function(success) {
+        $("#viewMoreBalance").html("<b>Balance : </b>" + success[0].Balance)
     })
 }
 

@@ -258,9 +258,13 @@ folder instead of downloading all of them to reduce the load. -->
                                             <input type="text" class="form-control" id="pp">
                                         </div>
 
+                                        <!-- <div class="form-group">
+<label for="usr">Profit Margin:</label>
+<input type="text" class="form-control" id="pm">
+</div> -->
                                         <div class="form-group">
-                                            <label for="usr">Profit Margin:</label>
-                                            <input type="text" class="form-control" id="pm">
+                                            <label for="usr">Purchase Date:</label>
+                                            <input type="date" class="form-control" id="carDate">
                                         </div>
                                         <div class="form-group">
                                             <label for="comment">Remarks:</label>
@@ -339,10 +343,10 @@ folder instead of downloading all of them to reduce the load. -->
 <label for="usr">Sale Price</label>
 <input type="text" class="form-control" id="olDsp">
 </div> -->
-                                        <div class="form-group">
-                                            <label for="usr">Profit Margin:</label>
-                                            <input type="text" class="form-control" id="olDpm">
-                                        </div>
+                                        <!-- <div class="form-group">
+<label for="usr">Profit Margin:</label>
+<input type="text" class="form-control" id="olDpm">
+</div> -->
                                         <div class="form-group">
                                             <label for="usr">Car Number:</label>
                                             <input type="text" class="form-control" id="Cn">
@@ -359,6 +363,10 @@ folder instead of downloading all of them to reduce the load. -->
 <label for="comment">Car Condition:</label>
 <textarea class="form-control" rows="5" id="carCondition"></textarea>
 </div> -->
+                                        <div class="form-group">
+                                            <label for="usr">Purchase Date:</label>
+                                            <input type="date" class="form-control" id="oldCarDate">
+                                        </div>
                                         <div class="form-group">
                                             <label for="comment">Remarks:</label>
                                             <textarea class="form-control" rows="5" id="olDremarks"></textarea>
@@ -565,6 +573,7 @@ immediately after the control sidebar -->
     <!-- Bootstrap 3.3.7 -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="pages/js/js.js"></script>
+    <script type="text/javascript" src="pages/js/date.js"></script>
 
     <!-- Morris.js charts -->
     <script src="bower_components/raphael/raphael.min.js"></script>
