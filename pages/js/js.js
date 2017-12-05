@@ -1391,7 +1391,7 @@ function addInvestor() {
         "InvestorID": $("#inId").val(),
         "Name": $("#inName").val(),
         "ContactNo": $("#inCno").val(),
-        "Balance": $("#inInvestment").val(),
+        "Investment": $("#inInvestment").val(),
         "AddedDate": newDate,
         // "Payable": $("#inPayable").val(),
         // "Receivable": $("#inReceivable").val(),
