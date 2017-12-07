@@ -1633,9 +1633,19 @@ folder instead of downloading all of them to reduce the load. -->
                 <div class="row">
 
 
-                    <div class="input-group" id="dayBookDate">
-                        <input id="dbd" type="date" class="form-control">
-                        <span class="input-group-addon" id="dateSubmit"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-group" id="dayBookDate">
+                                <input id="dbd" type="date" class="form-control">
+                                <span class="input-group-addon" id="dateSubmit"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-group" id="openingBalance">
+                                <input type="number" class="form-control" placeholder="Opening Balance..">
+                                <span class="input-group-addon" id="obSubmit"><i class="fa fa-balance-scale"  aria-hidden="true"></i></span>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -1668,6 +1678,10 @@ folder instead of downloading all of them to reduce the load. -->
                             <!-- <tbody id="debitTable">
 </tbody> -->
                         </table>
+                    </div>
+                    <div class="input-group" id="closingBalance">
+                        <input type="ob" class="form-control" placeholder="Closeing Balance..">
+                        <span class="input-group-addon" id="cSubmit"><i class="fa fa-balance-scale"  aria-hidden="true"></i></span>
                     </div>
             </section>
             <!-- /.content -->

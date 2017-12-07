@@ -39,30 +39,30 @@ function logOut() {
     user ="";
 }*/
 /*------------------------------CREDIT MODAL--------------------------------------*/
-$('#credit').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#debit').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#InvestorModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#SupplierModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#cars').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#carOld').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#customerModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#addAccount').on('hidden.bs.modal', function() {
-    location.reload();
-})
+// $('#credit').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#debit').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#InvestorModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#SupplierModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#cars').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#carOld').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#customerModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#addAccount').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
 
 
 
@@ -1605,13 +1605,18 @@ function getCustomerBalanceAndPayable(id) {
 }
 
 function addAccount() {
+    var date = new Date('' + $("#accDate").val() + '');
+    // console.log(date)
+    var newDate = date.toString('dd/MM/yyyy');
     var data = {
         "BankName": $('#bankListAccount').val(),
         "AccountID": $('#accAccountId').val(),
         "AccountNo": $('#accAccountNo').val(),
         "Balance": $('#accBalance').val(),
+        "Date": newDate,
         "AddedBy": localStorage.getItem("myVar")
     }
+
     $.post(apiPath + "Accounts", data, function(success, status) {
         location.reload();
     });

@@ -261,9 +261,18 @@ table {
     display: none;
 }
 
+#closingBalance {
+    width: 25%;
+    margin-left: 10px;
+}
+
+#openingBalance {
+    width: 50%;
+}
+
 #dayBookDate {
     margin-left: 10px;
-    width: 20%;
+    width: 50%;
 }
 
 #investorDivCredit {
