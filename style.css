@@ -247,6 +247,10 @@ table {
     display: none;
 }
 
+#renovated {
+    display: none;
+}
+
 .carAlert {
     font-size: 20px;
     text-align: center;

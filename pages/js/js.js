@@ -1122,13 +1122,23 @@ $('.checkCar').on('click', function() {
     if (radio == "new") {
         $('#new').css('display', 'block');
         $('#old').css('display', 'none');
+        $('#renovated').css('display', 'none');
         $('#oldCar').hide();
+        $('#renCar').hide();
         $('#newCar').show();
-    }
-    if (radio == "old") {
+    } else if (radio == "old") {
         $('#old').css('display', 'block');
         $('#new').css('display', 'none');
+        $('#renovated').css('display', 'none');
         $('#oldCar').show();
+        $('#renCar').hide();
+        $('#newCar').hide();
+    } else if (radio == "ren") {
+        $('#old').css('display', 'none');
+        $('#new').css('display', 'none');
+        $('#renovated').css('display', 'block');
+        $('#renCar').show();
+        $('#oldCar').hide();
         $('#newCar').hide();
 
     }
@@ -1166,9 +1176,9 @@ function addOldCar() {
             "EngineNo": $("#olDcarEng").val(),
             "ChasisNo": $("#olDchNo").val(),
             // "ProfitMargin": $("#olDpm").val(),
-            "PurchasePrice": newDate,
+            "PurchasePrice": $("#olDpp").val(),
             //"SalePrice": $("#olDsp").val(),
-            "PurchaseDate": new Date(),
+            "PurchaseDate": newDate,
             "CarCondition": "Old",
             "CarNumber": $("#Cn").val(),
             "Milage": $("#Mil").val(),
@@ -1180,10 +1190,49 @@ function addOldCar() {
         }
         //console.log(data)
         //console.log("@ addCar")
-        /*toastr.success("Car Added <a href='index.html'><strong>Go To Index</a></strong>")*/
+
+    /*toastr.success("Car Added <a href='index.html'><strong>Go To Index</a></strong>")*/
+
+    // console.log(data);
     $.post(apiPath + "Cars", data, function(data, status) {
         location.reload();
         toastr.success("Old Car Added <a href='index.html'><strong>Go To Index</a></strong>");
+        console.log(data);
+    });
+}
+
+
+function addRenCar() {
+    var date = new Date('' + $("#oldCarDateRen").val() + '');
+    var newDate = date.toString('dd/MM/yyyy');
+
+    var data = {
+            "CarID": $("#olDcarIdRen").val(),
+            "DO": "1122",
+            "Make": $("#olDcarMakeRen").val(),
+            "MYear": $("#manufactureYearOldRen").val(),
+            "Model": $("#olDcarModelRen").val(),
+            "Color": $("#olDcarColorRen").val(),
+            "EngineNo": $("#olDcarEngRen").val(),
+            "ChasisNo": $("#olDchNoRen").val(),
+            // "ProfitMargin": $("#olDpm").val(),
+            "PurchasePrice": $("#olDppRen").val(),
+            //"SalePrice": $("#olDsp").val(),
+            "PurchaseDate": newDate,
+            "CarCondition": "Renovated",
+            "CarNumber": $("#CnRen").val(),
+            "Milage": $("#MilRen").val(),
+            "RegistrationStatus": $("input[name='statusRen']:checked").val(),
+            "Grade": $("#GradeRen").val(),
+            "AddedBy": localStorage.getItem("myVar"),
+            "Remarks": $("#olDremarksRen").val()
+
+        }
+        //console.log("@ addCar")
+        /*toastr.success("Car Added <a href='index.html'><strong>Go To Index</a></strong>")*/
+    $.post(apiPath + "Cars", data, function(data, status) {
+        location.reload();
+        toastr.success("Renovated Car Added <a href='index.html'><strong>Go To Index</a></strong>");
         console.log(data);
     });
 }
@@ -2873,6 +2922,7 @@ function getolDMakeListCar() {
         }, this)
 
         $('#olDcarMake').append(html);
+        $('#olDcarMakeRen').append(html);
     });
 
 }
@@ -2887,6 +2937,7 @@ function getOldColorListCar() {
         }, this)
 
         $('#olDcarColor').append(html);
+        $('#olDcarColorRen').append(html);
     });
 
 }
@@ -2901,6 +2952,7 @@ function getolDModelListCar() {
         }, this)
 
         $('#olDcarModel').append(html);
+        $('#olDcarModelRen').append(html);
     });
 
 }
@@ -3373,6 +3425,12 @@ $('#cars').on('show.bs.modal', function() {
 $('#carOld').on('show.bs.modal', function() {
     getManufactureYear();
 });
+$('#carRen').on('show.bs.modal', function() {
+    getManufactureYear();
+    getolDMakeListCar();
+    getOldColorListCar();
+    getolDModelListCar();
+});
 
 function addMake() {
 
@@ -3480,5 +3538,6 @@ function getManufactureYear() {
         })
         $("#manufactureYear").append(html);
         $("#manufactureYearOld").append(html);
+        $("#manufactureYearOldRen").append(html);
     })
 }
