@@ -39,30 +39,33 @@ function logOut() {
     user ="";
 }*/
 /*------------------------------CREDIT MODAL--------------------------------------*/
-// $('#credit').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#debit').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#InvestorModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#SupplierModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#cars').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#carOld').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#customerModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#addAccount').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
+$('#credit').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#debit').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#InvestorModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#SupplierModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#cars').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#carOld').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#customerModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#addAccount').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#carRen').on('hidden.bs.modal', function() {
+    location.reload();
+})
 
 
 
