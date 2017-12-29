@@ -39,36 +39,36 @@ function logOut() {
     user ="";
 }*/
 /*------------------------------CREDIT MODAL--------------------------------------*/
-// $('#credit').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#debit').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#InvestorModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#SupplierModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#cars').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#carOld').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#customerModal').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#addAccount').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#carRen').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
-// $('#openingBalanceAccount').on('hidden.bs.modal', function() {
-//     location.reload();
-// })
+$('#credit').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#debit').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#InvestorModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#SupplierModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#cars').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#carOld').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#customerModal').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#addAccount').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#carRen').on('hidden.bs.modal', function() {
+    location.reload();
+})
+$('#openingBalanceAccount').on('hidden.bs.modal', function() {
+    location.reload();
+})
 
 
 
@@ -1829,7 +1829,7 @@ $('#creditCarID').on('change', function() {
         var html = '';
         //console.log(success[0].Status);
 
-        $('#creditpr').val(success[0].ProfitMargin);
+        //$('#creditpr').val(success[0].ProfitMargin);
         if ($("#creditCarID").val() != "Select Car") {
             $("#purchasePriceCredit").val(success[0].PurchasePrice);
         } else {
@@ -1848,38 +1848,77 @@ function addCredit() {
     var data;
     if ($('#sel1').val() == "Car") {
 
-        if (!$('#cihCreditAmount').val()) {} else {
-            addCashInHand($('#cihCreditAmount').val())
-        }
-
-        for (var i = 0; i <= countCiCar; i++) {
-            if (!$('#chequeCreditAmount' + i + '').val() || !$('#accountIdCredit' + i + '').val() || !$('#cNoCredit' + i + '').val() || $('#accountIdCredit' +
-                    i + '').val() == "Select Account") {} else {
-                addCheque($('#chequeCreditAmount' + i + '').val(), $('#cNoCredit' + i + '').val(), $('#accountIdCredit' + i + '').val())
+        var option = $('#whosCarSelect').val();
+        if (option == "Investor's Car") {
+            data = {
+                "InvestorID": $("#creditInvestor").val(),
+                "CarID": $('#creditCarID').val(),
+                "DO": $('#11').val(),
+                "AddedBy": localStorage.getItem("myVar"),
+                "SalePrice": $("#sp").val(),
+                "CustomerID": $("#creditCustomer").val(),
+                "ProfitMargin": $('#creditpr').val(),
+                "Description": $("#dBox").val()
             }
-        }
-        for (var j = 0; j <= countOCar; j++)
-            if (!$('#accountIdCreditOnline' + j).val() || !$('#onlineCreditAmount' + j).val() || $('#accountIdCreditOnline' + j).val() == "Select Account") {} else {
-                addOnline($('#accountIdCreditOnline' + j).val(), $('#onlineCreditAmount' + j).val())
+        } else if (option == "Supplier's Car") {
+            data = {
+                "SupplierID": $("#creditSup").val(),
+                "CarID": $('#creditCarID').val(),
+                "DO": $('#11').val(),
+                "AddedBy": localStorage.getItem("myVar"),
+                "SalePrice": $("#sp").val(),
+                "CustomerID": $("#creditCustomer").val(),
+                "ProfitMargin": $('#creditpr').val(),
+                "Description": $("#dBox").val()
             }
 
-        data = {
-            "CarID": $('#creditCarID').val(),
-            "DO": $('#11').val(),
-            "PaymentModes": pay,
-            "TotalAmount": TotalAmount,
-            "TransactionType": "Credit",
-            "Type": "SalePurchase",
-            "AddedBy": localStorage.getItem("myVar"),
-            "SalePrice": $("#sp").val(),
-            "CustomerID": $("#creditCustomer").val(),
-            "ProfitMargin": $('#creditpr').val()
-        }
+        } else if (option == "Customer's Car") {
+            data = {
+                "CustomerID": $("#creditCust").val(),
+                "CarID": $('#creditCarID').val(),
+                "DO": $('#11').val(),
+                "AddedBy": localStorage.getItem("myVar"),
+                "SalePrice": $("#sp").val(),
+                "CustomerID": $("#creditCustomer").val(),
+                "ProfitMargin": $('#creditpr').val(),
+                "Description": $("#dBox").val()
+            }
 
+        }
+        //console.log(data);
         $.post(apiPath + "DayBooks", data, function(success, status) {
             location.reload();
 
         });
+        // if (!$('#cihCreditAmount').val()) {} else {
+        //     addCashInHand($('#cihCreditAmount').val())
+        // }
+
+        // for (var i = 0; i <= countCiCar; i++) {
+        //     if (!$('#chequeCreditAmount' + i + '').val() || !$('#accountIdCredit' + i + '').val() || !$('#cNoCredit' + i + '').val() || $('#accountIdCredit' +
+        //             i + '').val() == "Select Account") {} else {
+        //         addCheque($('#chequeCreditAmount' + i + '').val(), $('#cNoCredit' + i + '').val(), $('#accountIdCredit' + i + '').val())
+        //     }
+        // }
+        // for (var j = 0; j <= countOCar; j++)
+        //     if (!$('#accountIdCreditOnline' + j).val() || !$('#onlineCreditAmount' + j).val() || $('#accountIdCreditOnline' + j).val() == "Select Account") {} else {
+        //         addOnline($('#accountIdCreditOnline' + j).val(), $('#onlineCreditAmount' + j).val())
+        //     }
+
+        // data = {
+        //     "CarID": $('#creditCarID').val(),
+        //     "DO": $('#11').val(),
+        //     "PaymentModes": pay,
+        //     "TotalAmount": TotalAmount,
+        //     "TransactionType": "Credit",
+        //     "Type": "SalePurchase",
+        //     "AddedBy": localStorage.getItem("myVar"),
+        //     "SalePrice": $("#sp").val(),
+        //     "CustomerID": $("#creditCustomer").val(),
+        //     "ProfitMargin": $('#creditpr').val()
+        // }
+
+
 
     }
 
@@ -3314,19 +3353,19 @@ $("#whatToDo").on('change', function() {
     }
 })
 $("#whosCarSelect").on('change', function() {
-    console.log("whosCarSelect");
+    //console.log("whosCarSelect");
     if ($("#whosCarSelect").val() == "Supplier's Car") {
         console.log("s");
         $("#creditpr").val(100);
-        $("#creditpr").prop('disabled', true);
+        //$("#creditpr").prop('disabled', true);
     } else if ($("#whosCarSelect").val() == "Customer's Car") {
         console.log("c");
         $("#creditpr").val(100);
-        $("#creditpr").prop('disabled', true);
+        // $("#creditpr").prop('disabled', true);
     } else if ($("#whosCarSelect").val() == "Investor's Car") {
         console.log("i");
         $("#creditpr").val(0);
-        $("#creditpr").prop('disabled', false);
+        // $("#creditpr").prop('disabled', false);
     }
 });
 $("#cust").on('change', function() {
