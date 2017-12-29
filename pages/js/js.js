@@ -39,33 +39,33 @@ function logOut() {
     user ="";
 }*/
 /*------------------------------CREDIT MODAL--------------------------------------*/
-$('#credit').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#debit').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#InvestorModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#SupplierModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#cars').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#carOld').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#customerModal').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#addAccount').on('hidden.bs.modal', function() {
-    location.reload();
-})
-$('#carRen').on('hidden.bs.modal', function() {
-    location.reload();
-})
+// $('#credit').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#debit').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#InvestorModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#SupplierModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#cars').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#carOld').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#customerModal').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#addAccount').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
+// $('#carRen').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
 
 
 
@@ -618,24 +618,32 @@ $('#dsel1').on('change', function() {
 });
 $('#exp').on('change', function() {
     var name = $('#exp').val();
-    if (name == "Car Expense") {
+    if (name == "CarExpense") {
         $('#expDiv1').css('display', 'block');
         $('#expDiv2').css('display', 'none');
         $('#expDiv3').css('display', 'none');
-    } else if (name == "Home Expense") {
+        $('#expDiv4').css('display', 'none');
+    } else if (name == "BariPersonalExpense") {
 
 
         $('#expDiv1').css('display', 'none');
         $('#expDiv2').css('display', 'block');
         $('#expDiv3').css('display', 'none');
+        $('#expDiv4').css('display', 'none');
 
-    } else if (name == "Showroom Expense") {
+    } else if (name == "ShowRoomExpense") {
 
 
         $('#expDiv1').css('display', 'none');
         $('#expDiv2').css('display', 'none');
         $('#expDiv3').css('display', 'block');
+        $('#expDiv4').css('display', 'none');
 
+    } else if (name == "OtherExpense") {
+        $('#expDiv1').css('display', 'none');
+        $('#expDiv2').css('display', 'none');
+        $('#expDiv3').css('display', 'none');
+        $('#expDiv4').css('display', 'block');
     }
 });
 
@@ -2722,52 +2730,70 @@ function addDebit() {
 
     var data;
     if ($('#dsel1').val() == "Expense") {
-        if ($('#exp').val() == "Car Expense") {
+        if ($('#exp').val() == "CarExpense") {
+            var date1 = new Date('' + $("#expDiv1Date").val() + '');
+            var newDate1 = date1.toString('dd/MM/yyyy');
             data = {
-                "Description": $("#expDiv1Description").val(),
+                "Description": $("#expDiv1Comment").val(),
                 "Cost": $("#expDiv1Cost").val(),
                 "Type": "CarExpense",
                 "CarID": $("#expDiv1CarId").val(),
-                "Date": $("#expDiv1Date").val(),
-                "Reason": "CarExpense",
+                "Date": newDate1,
+                "Reason": "Car Expense",
                 "AddedBy": localStorage.getItem("myVar"),
                 "PaymentModes": payExpense
             }
-        }
-        if ($('#exp').val() == "Home Expense") {
+        } else if ($('#exp').val() == "BariPersonalExpense") {
+            var date2 = new Date('' + $("#expDiv2Date").val() + '');
+            var newDate2 = date2.toString('dd/MM/yyyy');
             data = {
                 "Description": $("#expDiv2Comment").val(),
                 "Cost": $("#expDiv2Cost").val(),
-                "Type": "HomeExpense",
-                "Date": $("#expDiv2Date").val(),
-                "Reason": "HomeExpense",
+                "Type": "BariPersonalExpense",
+                "Date": newDate2,
+                "Reason": "BariPersonalExpense",
                 "AddedBy": localStorage.getItem("myVar"),
                 "PaymentModes": payExpense
             }
-        }
-        if ($('#exp').val() == "Showroom Expense") {
+        } else if ($('#exp').val() == "ShowRoomExpense") {
+            var date3 = new Date('' + $("#expDiv3Date").val() + '');
+            var newDate3 = date3.toString('dd/MM/yyyy');
             data = {
                 "Description": $("#expDiv3Comment").val(),
                 "Cost": $("#expDiv3Cost").val(),
-                "Type": "ShowroomExpense",
-                "Date": $("#expDiv3Date").val(),
-                "Reason": "ShowroomExpense",
+                "Type": "ShowRoomExpense",
+                "Date": newDate3,
+                "Reason": "ShowRoomExpense",
+                "AddedBy": localStorage.getItem("myVar"),
+                "PaymentModes": payExpense
+            }
+        } else if ($('#exp').val() == "OtherExpense") {
+            var date4 = new Date('' + $("#expDiv4Date").val() + '');
+            var newDate4 = date4.toString('dd/MM/yyyy');
+            data = {
+                "Description": $("#expDiv4Comment").val(),
+                "Cost": $("#expDiv4Cost").val(),
+                "Type": "OtherExpense",
+                "Date": newDate4,
+                "Reason": "OtherExpense",
                 "AddedBy": localStorage.getItem("myVar"),
                 "PaymentModes": payExpense
             }
         }
+
         if ($("#expCash").val() == "Cash In Hand") {
-            payExpense.push({ "Cost": parseInt($("#expCih").val()), "Mode": "Cash" })
+            payExpense.push({ "Mode": "Cash" })
         } else if ($("#expCash").val() == "Cheque") {
             if (($("#alExpCheque").val()) != "Select Account") {
-                payExpense.push({ "Mode": "Cheque", "Cost": parseInt($("#amountExpCheque").val()), "AccountID": $("#alExpCheque").val(), "ChequeNo": $("#cnExpCheque").val() })
+                payExpense.push({ "Mode": "Cheque", "AccountID": $("#alExpCheque").val(), "ChequeNo": $("#cnExpCheque").val() })
             }
         } else if ($("#expCash").val() == "Online Payment") {
             if (($("#alExpOnline").val()) != "Select Account") {
-                payExpense.push({ "Mode": "Online Payment", "AccountID": $("#alExpOnline").val(), "Cost": parseInt($("#amountExpOnline").val()) })
+                payExpense.push({ "Mode": "Online Payment", "AccountID": $("#alExpOnline").val() })
             }
         }
 
+        // console.log(data);
         $.post(apiPath + "Expenses", data, function(success, status) {
             location.reload();
         });

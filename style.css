@@ -139,6 +139,10 @@ table {
     display: none;
 }
 
+#expDiv4 {
+    display: none;
+}
+
 .dchequeChecked {
     display: none;
 }
