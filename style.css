@@ -335,6 +335,19 @@ table {
     display: none;
 }
 
+.designButton {
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #222d32;
+    background-color: #3c8dbc;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    padding: 10px;
+}
+
 
 /*.................................................*/
 

@@ -1171,7 +1171,6 @@ function addOldCar() {
 
     var data = {
             "CarID": $("#olDcarId").val(),
-            "DO": "1122",
             "Make": $("#olDcarMake").val(),
             "MYear": $("#manufactureYearOld").val(),
             "Model": $("#olDcarModel").val(),
@@ -1211,7 +1210,6 @@ function addRenCar() {
 
     var data = {
             "CarID": $("#olDcarIdRen").val(),
-            "DO": "1122",
             "Make": $("#olDcarMakeRen").val(),
             "MYear": $("#manufactureYearOldRen").val(),
             "Model": $("#olDcarModelRen").val(),
@@ -1240,12 +1238,42 @@ function addRenCar() {
     });
 }
 
+function getBankListForopbA() {
+    var html;
+    $.get(apiPath + "/Banks", function(success) {
+        success.forEach(function(ele) {
+            html += `<option>${ele.Name}</option>`
+        })
+        $("#opbBanks").append(html);
+    })
+}
+$("#opbBanks").on('change', function() {
+    var bname = $("#opbBanks").val()
+    $.get(apiPath + "/Accounts?filter[where][BankName]=" + bname, function(success) {
+        //console.log(success[0].BankName);
+        $("#opbAccounts").append(`<option>${success[0].AccountID}</option>`);
+    });
+});
+
+function opbA() {
+    var date = new Date('' + $("#opbDate").val() + '');
+    var newDate = date.toString('dd/MM/yyyy');
+    // var data = {
+    //     "AddedDate": newDate,
+    //     "AccountID": $("#opbAccounts").val(),
+    //     "Amount": $("#opbBalance").val(),
+
+    // }
+    $.get(apiPath + "Accounts/OpeningBalanceAccounts?AddedDate=" + newDate + "&AccountID=" + $("#opbAccounts").val() + "&Amount=" + $("#opbBalance").val(), function(success) {
+        location.reload();
+    })
+}
+
 function addCar() {
-    var date = new Date('' + $("#carDate").val() + '');
+    var date = new Date('' + $("#opbDate").val() + '');
     var newDate = date.toString('dd/MM/yyyy');
     var data = {
             "CarID": $("#carId").val(),
-            "DO": "1122",
             "Make": $("#carMake").val(),
             "Model": $("#carModel").val(),
             "MYear": $("#manufactureYear").val(),
@@ -1956,6 +1984,7 @@ $('#creditCust').on('change', function() {
 
 
 });
+
 $('#creditSup').on('change', function() {
     $('#creditCarID').html('');
     $.get(apiPath + "Cars?filter[where][SupplierID]=" + $('#creditSup').val() + "", function(success) {
@@ -1970,9 +1999,9 @@ $('#creditSup').on('change', function() {
         }, this)
         $('#creditCarID').append(html);
     });
-
-
 });
+
+
 $('#creditInvestor').on('change', function() {
     $('#creditCarID').html('');
     $.get(apiPath + "Cars/GetCarByInvestor?InvestorID=" + $('#creditInvestor').val() + "", function(success) {
@@ -3543,4 +3572,10 @@ function getManufactureYear() {
         $("#manufactureYearOld").append(html);
         $("#manufactureYearOldRen").append(html);
     })
+}
+
+function getBankBalance() {
+    $.get(apiPath + "Accounts/getPayableBank", function(success) {
+        $("#bbalance").html(success);
+    });
 }
