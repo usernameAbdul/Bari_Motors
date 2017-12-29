@@ -66,6 +66,9 @@ function logOut() {
 // $('#carRen').on('hidden.bs.modal', function() {
 //     location.reload();
 // })
+// $('#openingBalanceAccount').on('hidden.bs.modal', function() {
+//     location.reload();
+// })
 
 
 
@@ -3604,4 +3607,28 @@ function getBankBalance() {
     $.get(apiPath + "Accounts/getPayableBank", function(success) {
         $("#bbalance").html(success);
     });
+}
+
+function bariExpense() {
+    $.get(apiPath + "Accounts/transferBariToOdi", function() {
+        toastr.success("Balance Shifted");
+    })
+}
+
+function otherExpense() {
+    $.get(apiPath + "Accounts/transferOtherToOdi", function() {
+        toastr.success("Balance Shifted");
+    })
+}
+
+function showRoomExpense() {
+    $.get(apiPath + "Accounts/transferSreToBariODI", function() {
+        toastr.success("Balance Shifted");
+    })
+}
+
+function profitAndLossShift() {
+    $.get(apiPath + "Accounts/transferPLBariOdi", function() {
+        toastr.success("Balance Shifted");
+    })
 }
