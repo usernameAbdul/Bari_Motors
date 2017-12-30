@@ -1281,7 +1281,7 @@ function opbA() {
 }
 
 function addCar() {
-    var date = new Date('' + $("#opbDate").val() + '');
+    var date = new Date('' + $("#carNewDate").val() + '');
     var newDate = date.toString('dd/MM/yyyy');
     var data = {
             "CarID": $("#carId").val(),
