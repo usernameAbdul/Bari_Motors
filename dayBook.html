@@ -1819,9 +1819,10 @@
                         <table id="creditTable" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Ref</th>
                                     <th>Date</th>
                                     <th>Reason</th>
-                                    <th>D.O/Ref</th>
+                                    <th>D.O</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -1834,9 +1835,10 @@
                         <table id="debitTable" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Ref</th>
                                     <th>Date</th>
                                     <th>Reason</th>
-                                    <th>D.O/Ref</th>
+                                    <th>D.O</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -1850,6 +1852,33 @@
                     </div>
             </section>
             <!-- /.content -->
+
+
+            <!-- <a class="btn btn-primary" data-toggle="modal" href='#modal-id'>Trigger modal</a> -->
+            <div class="modal fade" id="modal-id">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Transaction Details</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email">Description:</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <p id="trxDesc" class="form-control-static"></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
@@ -1935,7 +1964,13 @@
                     "order": [
                         [0, "desc"]
                     ],
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 0
+                    }],
                     "columns": [{
+                        "data": "RF"
+                    }, {
                         "data": "Date"
                     }, {
                         "data": "Reason"
@@ -1945,6 +1980,25 @@
                         "data": "Amount"
                     }],
                 });
+                $('#creditTable tbody').on('click', "tr", function() {
+                    var data = table.row(this).data();
+                    getRowTrx(data.RF);
+                });
+
+                function getRowTrx(data) {
+
+                    $.get("http://52.187.168.31:3000/api/Transactions?filter[where][RF]=" + data,
+                        function(success, err) {
+
+                            if (success[0].Description) {
+                                $("#trxDesc").text(success[0].Description);
+                            } else {
+                                $("#trxDesc").text("No Description");
+                            }
+                            console.log(success[0].Description);
+                            $('#modal-id').modal('show');
+                        });
+                }
             }
 
             function getDebitTransactionD(dt) {
@@ -1957,7 +2011,13 @@
                     "order": [
                         [0, "desc"]
                     ],
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 0
+                    }],
                     "columns": [{
+                        "data": "RF"
+                    }, {
                         "data": "Date"
                     }, {
                         "data": "Reason"
@@ -1967,6 +2027,25 @@
                         "data": "Amount"
                     }],
                 });
+                $('#debitTable tbody').on('click', "tr", function() {
+                    var data = table.row(this).data();
+                    getRowTrx(data.RF);
+                });
+
+                function getRowTrx(data) {
+
+                    $.get("http://52.187.168.31:3000/api/Transactions?filter[where][RF]=" + data,
+                        function(success, err) {
+
+                            if (success[0].Description) {
+                                $("#trxDesc").text(success[0].Description);
+                            } else {
+                                $("#trxDesc").text("No Description");
+                            }
+                            console.log(success[0].Description);
+                            $('#modal-id').modal('show');
+                        });
+                }
             }
         </script>
 </body>
