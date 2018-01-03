@@ -1941,7 +1941,7 @@
 
                 var date = new Date('' + $("#dbd").val() + '');
                 // console.log(date)
-                var newDate = date.toString('dd/MM/yyyy');
+                var newDate = date.toString('dd/M/yyyy');
                 $("#creditTable").dataTable().fnDestroy();
                 $("#debitTable").dataTable().fnDestroy();
                 getCreditTransactionD(newDate);
@@ -1949,7 +1949,7 @@
                 // console.log(date.getMonth());
             });
             var dt = new Date();
-            var today = dt.toString('dd/MM/yyyy');
+            var today = dt.toString('dd/M/yyyy');
             //console.log(today);
             getCreditTransactionD(today);
             getDebitTransactionD(today);

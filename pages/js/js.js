@@ -1178,7 +1178,7 @@ function expenseCount() {
 
 function addOldCar() {
     var date = new Date('' + $("#oldCarDate").val() + '');
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
 
     var data = {
             "CarID": $("#olDcarId").val(),
@@ -1217,7 +1217,7 @@ function addOldCar() {
 
 function addRenCar() {
     var date = new Date('' + $("#oldCarDateRen").val() + '');
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
 
     var data = {
             "CarID": $("#olDcarIdRen").val(),
@@ -1268,7 +1268,7 @@ $("#opbBanks").on('change', function() {
 
 function opbA() {
     var date = new Date('' + $("#opbDate").val() + '');
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
     // var data = {
     //     "AddedDate": newDate,
     //     "AccountID": $("#opbAccounts").val(),
@@ -1282,7 +1282,7 @@ function opbA() {
 
 function addCar() {
     var date = new Date('' + $("#carNewDate").val() + '');
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
     var data = {
             "CarID": $("#carId").val(),
             "Make": $("#carMake").val(),
@@ -1425,7 +1425,7 @@ function getCar() {
 function addSupplier() {
     // var radio = $("input[name='type']:checked").val();
     var date = new Date('' + $("#supDate").val() + '');
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
     var data = {
         "SupplierID": $("#supId").val(),
         "ShowRoomName": $("#supName").val(),
@@ -1477,7 +1477,7 @@ function addInvestor() {
     // var radio = $("input[name='type']:checked").val();
 
     var date = new Date('' + $("#inDate").val() + '');
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
     var data = {
         "InvestorID": $("#inId").val(),
         "Name": $("#inName").val(),
@@ -1600,7 +1600,7 @@ function generateAccountDiv() {
 
 function addCustomer() {
     var date = new Date('' + $("#custDate").val() + '');
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
     var data = {
         "CustomerID": $("#custId").val(),
         "Name": $("#custName").val(),
@@ -1698,7 +1698,7 @@ function getCustomerBalanceAndPayable(id) {
 function addAccount() {
     var date = new Date('' + $("#accDate").val() + '');
     // console.log(date)
-    var newDate = date.toString('dd/m/yyyy');
+    var newDate = date.toString('dd/M/yyyy');
     var data = {
         "BankName": $('#bankListAccount').val(),
         "AccountID": $('#accAccountId').val(),
@@ -2774,7 +2774,7 @@ function addDebit() {
     if ($('#dsel1').val() == "Expense") {
         if ($('#exp').val() == "CarExpense") {
             var date1 = new Date('' + $("#expDiv1Date").val() + '');
-            var newDate1 = date1.toString('dd/m/yyyy');
+            var newDate1 = date1.toString('dd/M/yyyy');
             data = {
                 "Description": $("#expDiv1Comment").val(),
                 "Cost": $("#expDiv1Cost").val(),
@@ -2787,7 +2787,7 @@ function addDebit() {
             }
         } else if ($('#exp').val() == "BariPersonalExpense") {
             var date2 = new Date('' + $("#expDiv2Date").val() + '');
-            var newDate2 = date2.toString('dd/m/yyyy');
+            var newDate2 = date2.toString('dd/M/yyyy');
             data = {
                 "Description": $("#expDiv2Comment").val(),
                 "Cost": $("#expDiv2Cost").val(),
@@ -2799,7 +2799,7 @@ function addDebit() {
             }
         } else if ($('#exp').val() == "ShowRoomExpense") {
             var date3 = new Date('' + $("#expDiv3Date").val() + '');
-            var newDate3 = date3.toString('dd/m/yyyy');
+            var newDate3 = date3.toString('dd/M/yyyy');
             data = {
                 "Description": $("#expDiv3Comment").val(),
                 "Cost": $("#expDiv3Cost").val(),
@@ -2811,7 +2811,7 @@ function addDebit() {
             }
         } else if ($('#exp').val() == "OtherExpense") {
             var date4 = new Date('' + $("#expDiv4Date").val() + '');
-            var newDate4 = date4.toString('dd/m/yyyy');
+            var newDate4 = date4.toString('dd/M/yyyy');
             data = {
                 "Description": $("#expDiv4Comment").val(),
                 "Cost": $("#expDiv4Cost").val(),
