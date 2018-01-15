@@ -2591,15 +2591,16 @@ function getBankListChequetoCih() {
 
 function getBankListBdivOnline() {
     $.get(apiPath + "Banks?filter[where][Name][neq]=Cash In Hand", function(success, status) {
-
         var html = '';
         success.forEach(function(ele) {
             if (ele.Name != "Profit Loss") {
                 html += `<option>` + ele.Name + `</option>`
+                    //console.log(ele.Name);
             }
         }, this)
 
         $('#bankListBdivOnline').append(html);
+
     });
 
 }
@@ -3669,5 +3670,22 @@ function showRoomExpense() {
 function profitAndLossShift() {
     $.get(apiPath + "Accounts/transferPLBariOdi", function() {
         toastr.success("Balance Shifted");
+    })
+}
+
+function obVal() {
+    $.get(apiPath + "/Balances/CreateOpeningBalance", function(success) {
+        console.log(success)
+        localStorage.setItem("obVal", success.Balance)
+        location.reload();
+    })
+}
+
+function cbVal() {
+    $.get(apiPath + "/Balances/CreateClosingBalance", function(success) {
+        console.log(success)
+        localStorage.setItem("cbVal", success.Balance)
+        localStorage.setItem("obVal", 0)
+        location.reload();
     })
 }

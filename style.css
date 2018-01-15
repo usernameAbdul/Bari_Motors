@@ -269,13 +269,18 @@ table {
     display: none;
 }
 
-#closingBalance {
+
+/* #closingBalance {
     width: 25%;
     margin-left: 10px;
 }
 
 #openingBalance {
     width: 50%;
+} */
+
+.bmargin {
+    text-align: center;
 }
 
 #dayBookDate {
